@@ -6,6 +6,7 @@ require (
 	entgo.io/ent v0.9.1
 	github.com/deepmap/oapi-codegen v1.8.2
 	github.com/getkin/kin-openapi v0.76.0
+	github.com/go-sql-driver/mysql v1.5.1-0.20200311113236-681ffa848bae
 	github.com/labstack/echo/v4 v4.6.0
 	github.com/oklog/ulid/v2 v2.0.2
 	go.uber.org/dig v1.13.0
