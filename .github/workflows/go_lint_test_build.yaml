@@ -1,13 +1,13 @@
 on:
   pull_request:
     paths:
-      - app/cmd/**
-      - app/internal/**
-      - app/go.mod
-      - app/go.sum
+      - backend/app/cmd/**
+      - backend/app/internal/**
+      - backend/app/go.mod
+      - backend/app/go.sum
 
 env:
-  GO_DIR: app
+  GO_DIR: backend/app
 
 jobs:
   setup:
@@ -26,23 +26,23 @@ jobs:
         with:
           filters: |
             api:
-              - app/cmd/api/**
-              - app/internal/app/api/**
-              - app/internal/pkg/**
-              - app/go.mod
-              - app/go.sum
+              - ${{ env.GO_DIR }}/cmd/api/**
+              - ${{ env.GO_DIR }}/internal/app/api/**
+              - ${{ env.GO_DIR }}/internal/pkg/**
+              - ${{ env.GO_DIR }}/go.mod
+              - ${{ env.GO_DIR }}/go.sum
             batch-begin-new-work-term:
-              - app/cmd/batch/batch-begin-new-work-term/**
-              - app/internal/app/batch/batch-begin-new-work-term/**
-              - app/internal/pkg/**
-              - app/go.mod
-              - app/go.sum
+              - ${{ env.GO_DIR }}/cmd/batch/batch-begin-new-work-term/**
+              - ${{ env.GO_DIR }}/internal/app/batch/batch-begin-new-work-term/**
+              - ${{ env.GO_DIR }}/internal/pkg/**
+              - ${{ env.GO_DIR }}/go.mod
+              - ${{ env.GO_DIR }}/go.sum
             batch-notificate-work-term-deadline:
-              - app/cmd/batch/batch-notificate-work-term-deadline/**
-              - app/internal/app/batch/batch-notificate-work-term-deadline/**
-              - app/internal/pkg/**
-              - app/go.mod
-              - app/go.sum
+              - ${{ env.GO_DIR }}/cmd/batch/batch-notificate-work-term-deadline/**
+              - ${{ env.GO_DIR }}/internal/app/batch/batch-notificate-work-term-deadline/**
+              - ${{ env.GO_DIR }}/internal/pkg/**
+              - ${{ env.GO_DIR }}/go.mod
+              - ${{ env.GO_DIR }}/go.sum
 
       - name: Set up Go 1.16
         uses: actions/setup-go@v2
@@ -134,7 +134,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP: api
-      VER: v1
     steps:
       - name: Check out
         uses: actions/checkout@v2
@@ -155,4 +154,4 @@ jobs:
 
       - name: Build
         working-directory: ${{ env.GO_DIR }}
-        run: GOARCH=amd64 GOOS=linux go build cmd/${{ env.APP }}/${{ env.VER }}/main.go
+        run: GOARCH=amd64 GOOS=linux go build cmd/${{ env.APP }}/main.go

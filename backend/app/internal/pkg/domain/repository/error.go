@@ -30,13 +30,6 @@ func newTxCommitError(err error) error {
 	return cerror.WrapInternalServerError(err, "tx.Commit")
 }
 
-// func parseFindError(err error, msg string) error {
-// 	if _err := newIsNotFoundError(err); _err != nil {
-// 		return _err
-// 	}
-// 	return cerror.WrapInternalServerError(err, msg)
-// }
-
 func parseQueryOnlyByUlid(err error, msg string, clientMsg string) error {
 	if _err := newIsNotFoundError(err, msg, clientMsg); _err != nil {
 		return _err
