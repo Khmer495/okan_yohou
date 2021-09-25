@@ -13,10 +13,11 @@ import (
 )
 
 type IAlertRepository interface {
-	Register(ctx context.Context, a entity.Alert) error
-	List(ctx context.Context, limit *entity.Limit, page *entity.Page) (entity.Alerts, error)
-	Change(ctx context.Context, a entity.Alert) error
-	Delete(ctx context.Context, a entity.Alert) error
+	Create(ctx context.Context, a entity.Alert) error
+	One(ctx context.Context, alertId entity.Id) (*entity.Alert, error)
+	List(ctx context.Context, limit *int, page *int) (entity.Alerts, error)
+	Update(ctx context.Context, a entity.Alert) error
+	Delete(ctx context.Context, alertId entity.Id) error
 }
 
 type AlertRepository struct {
@@ -29,7 +30,7 @@ func NewAlertRepository() IAlertRepository {
 	}
 }
 
-func (ar AlertRepository) Register(ctx context.Context, a entity.Alert) error {
+func (ar AlertRepository) Create(ctx context.Context, a entity.Alert) error {
 	now, err := entity.InitDatetime()
 	if err != nil {
 		return xerrors.Errorf("entity.InitDatetime: %w", err)
@@ -55,13 +56,28 @@ func (ar AlertRepository) Register(ctx context.Context, a entity.Alert) error {
 	return nil
 }
 
-func (ar AlertRepository) List(ctx context.Context, limit *entity.Limit, page *entity.Page) (entity.Alerts, error) {
+func (ar AlertRepository) One(ctx context.Context, alertId entity.Id) (*entity.Alert, error) {
+	a, err := ar.mysqlClient.Alert.Query().Where(
+		alert.UlidEQ(alertId.Ulid().String()),
+		alert.DeletedAtIsNil(),
+	).Only(ctx)
+	if err != nil {
+		return nil, parseQueryOnlyByUlid(err, "Alert.Query.Only", fmt.Sprintf("alertId: %sのalertが存在しません。", alertId.Ulid().String()))
+	}
+	alert, err := a.EntityAlert()
+	if err != nil {
+		return nil, xerrors.Errorf("a.EntityAlert: %w", err)
+	}
+	return alert, nil
+}
+
+func (ar AlertRepository) List(ctx context.Context, limit *int, page *int) (entity.Alerts, error) {
 	query := ar.mysqlClient.Alert.Query().
 		Where(alert.DeletedAtIsNil())
 	if limit != nil {
-		query.Limit(limit.Int())
+		query.Limit(*limit)
 		if page != nil {
-			query.Offset((page.Int() - 1) * limit.Int())
+			query.Offset((*page - 1) * *limit)
 		}
 	}
 	alerts, err := query.All(ctx)
@@ -75,7 +91,7 @@ func (ar AlertRepository) List(ctx context.Context, limit *entity.Limit, page *e
 	return entityAlerts, nil
 }
 
-func (ar AlertRepository) Change(ctx context.Context, a entity.Alert) error {
+func (ar AlertRepository) Update(ctx context.Context, a entity.Alert) error {
 	err := func() error {
 		tx, err := ar.mysqlClient.Tx(ctx)
 		if err != nil {
@@ -110,18 +126,18 @@ func (ar AlertRepository) Change(ctx context.Context, a entity.Alert) error {
 	return nil
 }
 
-func (ar AlertRepository) Delete(ctx context.Context, a entity.Alert) error {
+func (ar AlertRepository) Delete(ctx context.Context, alertId entity.Id) error {
 	err := func() error {
 		tx, err := ar.mysqlClient.Tx(ctx)
 		if err != nil {
 			return xerrors.Errorf("ar.mysqlClient.Tx: %w", err)
 		}
 		alert, err := tx.Alert.Query().Where(
-			alert.UlidEQ(a.Id().Ulid().String()),
+			alert.UlidEQ(alertId.Ulid().String()),
 			alert.DeletedAtIsNil(),
 		).Only(ctx)
 		if err != nil {
-			return txRollbackAndParseError(tx, parseQueryOnlyByUlid(err, "Alert.Query.Only", fmt.Sprintf("alertId: %sのalertが存在しません。", a.Id().Ulid().String())), "Alert.Query.Only")
+			return txRollbackAndParseError(tx, parseQueryOnlyByUlid(err, "Alert.Query.Only", fmt.Sprintf("alertId: %sのalertが存在しません。", alertId.Ulid().String())), "Alert.Query.Only")
 		}
 		now, err := entity.InitDatetime()
 		if err != nil {

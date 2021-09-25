@@ -73,38 +73,78 @@ func (a Alert) Title() string {
 	return a.title
 }
 
+func (a *Alert) SetTitle(val string) {
+	a.title = val
+}
+
 func (a Alert) Lat() float32 {
 	return a.lat
+}
+
+func (a *Alert) SetLat(val float32) {
+	a.lat = val
 }
 
 func (a Alert) Lon() float32 {
 	return a.lon
 }
 
+func (a *Alert) SetLon(val float32) {
+	a.lon = val
+}
+
 func (a Alert) PWx() *int {
 	return a.wx
+}
+
+func (a *Alert) SetWx(val int) {
+	a.wx = &val
 }
 
 func (a Alert) PTemp() *float32 {
 	return a.temp
 }
 
+func (a *Alert) SetTemp(val float32) {
+	a.temp = &val
+}
+
 func (a Alert) PArpress() *int {
 	return a.arpress
+}
+
+func (a *Alert) SetArpress(val int) {
+	a.arpress = &val
 }
 
 func (a Alert) PWndspd() *int {
 	return a.wndspd
 }
 
+func (a *Alert) SetWndspd(val int) {
+	a.wndspd = &val
+}
+
 func (a Alert) PRhum() *int {
 	return a.rhum
+}
+
+func (a *Alert) SetRhum(val int) {
+	a.rhum = &val
 }
 
 func (a Alert) PFeeltmp() *int {
 	return a.feeltmp
 }
 
+func (a *Alert) SetFeeltmp(val int) {
+	a.feeltmp = &val
+}
+
 func (a Alert) Text() string {
 	return a.text
+}
+
+func (a *Alert) SetText(val string) {
+	a.text = val
 }
