@@ -15,7 +15,7 @@ import (
 type ServerInterface interface {
 	// アラート一覧取得
 	// (GET /alerts)
-	GetAlerts(ctx echo.Context) error
+	GetAlerts(ctx echo.Context, params GetAlertsParams) error
 	// アラート登録
 	// (POST /alerts)
 	PostAlerts(ctx echo.Context) error
@@ -36,8 +36,24 @@ type ServerInterfaceWrapper struct {
 func (w *ServerInterfaceWrapper) GetAlerts(ctx echo.Context) error {
 	var err error
 
+	// Parameter object where we will unmarshal all parameters from the context
+	var params GetAlertsParams
+	// ------------- Optional query parameter "page" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "page", ctx.QueryParams(), &params.Page)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter page: %s", err))
+	}
+
+	// ------------- Optional query parameter "limit" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "limit", ctx.QueryParams(), &params.Limit)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter limit: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetAlerts(ctx)
+	err = w.Handler.GetAlerts(ctx, params)
 	return err
 }
 

@@ -9,6 +9,17 @@ paths:
   /alerts:
     get:
       summary: アラート一覧取得
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: page
+          description: ページ数
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: 1ページあたりの上限数
       responses:
         "200":
           description: OK
@@ -64,93 +75,95 @@ components:
         title:
           type: string
           example: 雨が降ったとき教えて！
-        location:
-          properties:
-            lat:
-              description: 緯度
-              type: number
-              format: float
-              example: 35.6769883
-            lon:
-              description: 経度
-              type: number
-              format: float
-              example: 139.7588499
-        trigger:
-          properties:
-            wx:
-              type: integer
-              nullable: true
-              enum:
-                - 1
-                - 2
-                - 3
-                - 4
-                - 5
-              description: >
-                天気:
-                `1` - 晴
-                `2` - 曇
-                `3` - 雨
-                `4` - 雷
-                `5` - 雪
-            temp:
-              description: 気温
-              type: number
-              format: float
-              example: 20.4
-            arpress:
-              type: integer
-              nullable: true
-              enum:
-                - 1
-                - 2
-                - 3
-              description: >
-                気圧:
-                `1` - 高気圧
-                `2` - 通常
-                `3` - 低気圧
-            wndspd:
-              type: integer
-              nullable: true
-              enum:
-                - 1
-                - 2
-                - 3
-              description: >
-                風速:
-                `1` - ？
-                `2` - ？
-                `3` - ？
-            rhum:
-              type: integer
-              nullable: true
-              enum:
-                - 1
-                - 2
-                - 3
-              description: >
-                湿度:
-                `1` - ？
-                `2` - ？
-                `3` - ？
-            feeltmp:
-              type: integer
-              nullable: true
-              enum:
-                - 1
-                - 2
-                - 3
-              description: >
-                体感気温:
-                `1` - ？
-                `2` - ？
-                `3` - ？
+        lat:
+          description: 緯度
+          type: number
+          format: float
+          example: 35.6769883
+        lon:
+          description: 経度
+          type: number
+          format: float
+          example: 139.7588499
+        wx:
+          type: integer
+          nullable: true
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+          description: >
+            天気:
+            `1` - 晴
+            `2` - 曇
+            `3` - 雨
+            `4` - 雷
+            `5` - 雪
+        temp:
+          description: 気温
+          type: number
+          format: float
+          example: 20.4
+        arpress:
+          type: integer
+          nullable: true
+          enum:
+            - 1
+            - 2
+            - 3
+          description: >
+            気圧:
+            `1` - 高気圧
+            `2` - 通常
+            `3` - 低気圧
+        wndspd:
+          type: integer
+          nullable: true
+          enum:
+            - 1
+            - 2
+            - 3
+          description: >
+            風速:
+            `1` - ？
+            `2` - ？
+            `3` - ？
+        rhum:
+          type: integer
+          nullable: true
+          enum:
+            - 1
+            - 2
+            - 3
+          description: >
+            湿度:
+            `1` - ？
+            `2` - ？
+            `3` - ？
+        feeltmp:
+          type: integer
+          nullable: true
+          enum:
+            - 1
+            - 2
+            - 3
+          description: >
+            体感気温:
+            `1` - ？
+            `2` - ？
+            `3` - ？
         text:
           description: 通知内容
           type: string
           example: おはよう！今日は雨が降っているよ。傘を持つようにしよう！
+      required:
+        - id
+        - title
+        - lat
+        - lon
+        - text
 
   securitySchemes:
     Bearer:
