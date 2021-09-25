@@ -1,9 +1,3 @@
-OPENAPI_REPO = docs/unite-api-doc
-
-.PHONY: pull-openapi
-pull-openapi:
-	cd $(OPENAPI_REPO); git pull origin HEAD
-
 .PHONY: clean-local-mysql
 clean-local-mysql:
 	rm -rf mysql/data
