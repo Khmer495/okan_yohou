@@ -103,6 +103,10 @@ paths:
       responses:
         "201":
           description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Alert"
 
   /alerts/{alert_id}:
     parameters:
@@ -179,8 +183,12 @@ paths:
                   type: string
                   example: おはよう！今日は雨が降っているよ。傘を持つようにしよう！
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Alert"
 
     delete:
       summary: アラート変更
