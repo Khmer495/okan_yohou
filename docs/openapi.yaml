@@ -30,12 +30,19 @@ paths:
           description: Created
 
   /alerts/{alert_id}:
+    parameters:
+      - schema:
+          type: string
+        name: alert_id
+        in: path
+        required: true
+
     put:
       summary: アラート変更
       parameters:
         - schema:
             type: string
-          name: teamId
+          name: alert_id
           in: path
           required: true
       requestBody:
@@ -83,27 +90,79 @@ components:
         trigger:
           properties:
             wx:
-              description: 天気コード
               type: integer
-              example: 100
+              nullable: true
+              enum:
+                - 1
+                - 2
+                - 3
+                - 4
+                - 5
+                - null
+              description: >
+                天気:
+                `1` - 晴
+                `2` - 曇
+                `3` - 雨
+                `4` - 雷
+                `5` - 雪
             temp:
               description: 気温
               type: number
               format: double
               example: 20.4
             arpress:
-              description: 気圧
-              type: number
-              format: double
-              example: 1009
+              type: integer
+              nullable: true
+              enum:
+                - 1
+                - 2
+                - 3
+                - null
+              description: >
+                気圧:
+                `1` - 高気圧
+                `2` - 通常
+                `3` - 低気圧
             wndspd:
-              description: 風速
               type: integer
-              example: 0.8
+              nullable: true
+              enum:
+                - 1
+                - 2
+                - 3
+                - null
+              description: >
+                風速:
+                `1` - ？
+                `2` - ？
+                `3` - ？
             rhum:
-              description: 湿度
               type: integer
-              example: 76
+              nullable: true
+              enum:
+                - 1
+                - 2
+                - 3
+                - null
+              description: >
+                湿度:
+                `1` - ？
+                `2` - ？
+                `3` - ？
+            feeltmp:
+              type: integer
+              nullable: true
+              enum:
+                - 1
+                - 2
+                - 3
+                - null
+              description: >
+                体感気温:
+                `1` - ？
+                `2` - ？
+                `3` - ？
         text:
           description: 通知内容
           type: string
