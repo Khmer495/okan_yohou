@@ -64,7 +64,7 @@ func (h handler) PostAlerts(ctx echo.Context) error {
 		zap.S().Errorf("ctx.Bind: %+v", err)
 		return NewInvalidRequestFormatError(ctx, err)
 	}
-	_, err := h.au.Register(ctx.Request().Context(), req.Title, req.Lat, req.Lon, req.Wx, req.Temp, req.Arpress, req.Wndspd, req.Rhum, req.Feeltmp, req.Text)
+	alert, err := h.au.Register(ctx.Request().Context(), req.Title, req.Lat, req.Lon, req.Wx, req.Temp, req.Arpress, req.Wndspd, req.Rhum, req.Feeltmp, req.Text)
 	if err != nil {
 		zap.S().Errorf("h.au.Change: %+v", err)
 		if cerror.IsCode(err, cerror.InvalidArgumentErrorCode) {
@@ -72,7 +72,8 @@ func (h handler) PostAlerts(ctx echo.Context) error {
 		}
 		return NewInternalServerError(ctx)
 	}
-	return ctx.NoContent(http.StatusCreated)
+	res := fromEntityAlertToOpenapiAlert(*alert)
+	return ctx.JSON(http.StatusCreated, res)
 }
 
 func (h handler) DeleteAlertsAlertId(ctx echo.Context, alertId string) error {
@@ -93,7 +94,7 @@ func (h handler) PutAlertsAlertId(ctx echo.Context, alertId string) error {
 		zap.S().Errorf("ctx.Bind: %+v", err)
 		return NewInvalidRequestFormatError(ctx, err)
 	}
-	_, err := h.au.Change(ctx.Request().Context(), alertId, req.Title, req.Lat, req.Lon, req.Wx, req.Temp, req.Arpress, req.Wndspd, req.Rhum, req.Feeltmp, req.Text)
+	alert, err := h.au.Change(ctx.Request().Context(), alertId, req.Title, req.Lat, req.Lon, req.Wx, req.Temp, req.Arpress, req.Wndspd, req.Rhum, req.Feeltmp, req.Text)
 	if err != nil {
 		zap.S().Errorf("h.au.Change: %+v", err)
 		if cerror.IsCode(err, cerror.InvalidArgumentErrorCode) {
@@ -101,5 +102,6 @@ func (h handler) PutAlertsAlertId(ctx echo.Context, alertId string) error {
 		}
 		return NewInternalServerError(ctx)
 	}
-	return ctx.NoContent(http.StatusNoContent)
+	res := fromEntityAlertToOpenapiAlert(*alert)
+	return ctx.JSON(http.StatusOK, res)
 }
