@@ -196,6 +196,20 @@ paths:
         "204":
           description: No Content
 
+  /notifications:
+    get:
+      summary: 通知取得
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  count:
+                    type: integer
+                    description: 通知を送信した件数
+
 components:
   schemas:
     Alert:
@@ -268,8 +282,3 @@ components:
         - lat
         - lon
         - text
-
-  securitySchemes:
-    Bearer:
-      type: http
-      scheme: bearer
