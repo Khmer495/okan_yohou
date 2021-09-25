@@ -1,0 +1,115 @@
+openapi: 3.0.0
+info:
+  title: おかん予報
+  version: "1.0"
+  description: おかん予報
+servers:
+  - url: "http://localhost:8080"
+paths:
+  /alerts:
+    get:
+      summary: アラート一覧取得
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Alert"
+    post:
+      summary: アラート登録
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Alert"
+      responses:
+        "201":
+          description: Created
+
+  /alerts/{alert_id}:
+    put:
+      summary: アラート変更
+      parameters:
+        - schema:
+            type: string
+          name: teamId
+          in: path
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Alert"
+      responses:
+        "204":
+          description: No Content
+
+    delete:
+      summary: アラート変更
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Alert"
+      responses:
+        "204":
+          description: No Content
+
+components:
+  schemas:
+    Alert:
+      properties:
+        id:
+          type: string
+          example: 01F7ZF7XC2CC45NPTD8TMFFV4A
+        title:
+          type: string
+          example: 雨が降ったとき教えて！
+        location:
+          properties:
+            lat:
+              description: 緯度
+              type: number
+              format: double
+              example: 35.6769883
+            lon:
+              description: 経度
+              type: number
+              format: double
+              example: 139.7588499
+        trigger:
+          properties:
+            wx:
+              description: 天気コード
+              type: integer
+              example: 100
+            temp:
+              description: 気温
+              type: number
+              format: double
+              example: 20.4
+            arpress:
+              description: 気圧
+              type: number
+              format: double
+              example: 1009
+            wndspd:
+              description: 風速
+              type: integer
+              example: 0.8
+            rhum:
+              description: 湿度
+              type: integer
+              example: 76
+        text:
+          description: 通知内容
+          type: string
+          example: おはよう！今日は雨が降っているよ。傘を持つようにしよう！
+
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
