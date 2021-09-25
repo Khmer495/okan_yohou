@@ -6,7 +6,7 @@ import (
 )
 
 func (a Alert) EntityAlert() (*entity.Alert, error) {
-	alert, err := entity.NewAlert(a.Title, a.Lat, a.Lon, a.Wx, a.Temp, a.Arpress, a.Wndspd, a.Rhum, a.Feeltmp, a.Text)
+	alert, err := entity.NewAlert(a.Ulid, a.Title, a.Lat, a.Lon, a.Wx, a.Temp, a.Arpress, a.Wndspd, a.Rhum, a.Feeltmp, a.Text)
 	if err != nil {
 		return nil, xerrors.Errorf("entity.NewAlert: %w", err)
 	}

@@ -1,6 +1,9 @@
 package entity
 
-import "github.com/Khmer495/okan_yohou/internal/pkg/util/cerror"
+import (
+	"github.com/Khmer495/okan_yohou/internal/pkg/util/cerror"
+	"golang.org/x/xerrors"
+)
 
 type Alert struct {
 	id      Id
@@ -18,7 +21,11 @@ type Alert struct {
 
 type Alerts []*Alert
 
-func NewAlert(title string, lat float32, lon float32, wx *int, temp *float32, arpress *int, wndspd *int, rhum *int, feeltmp *int, text string) (*Alert, error) {
+func NewAlert(idString string, title string, lat float32, lon float32, wx *int, temp *float32, arpress *int, wndspd *int, rhum *int, feeltmp *int, text string) (*Alert, error) {
+	id, err := NewId(idString)
+	if err != nil {
+		return nil, xerrors.Errorf("NewId: %w", err)
+	}
 	if lat < 0 || 360 < lat {
 		return nil, cerror.NewInvalidArgumentError("lat < 0 || 360 < lat", "緯度は0~360の間で指定してください。")
 	}
@@ -51,6 +58,7 @@ func NewAlert(title string, lat float32, lon float32, wx *int, temp *float32, ar
 		}
 	}
 	alert := Alert{
+		id:      *id,
 		title:   title,
 		lat:     lat,
 		lon:     lon,
@@ -63,6 +71,18 @@ func NewAlert(title string, lat float32, lon float32, wx *int, temp *float32, ar
 		text:    text,
 	}
 	return &alert, nil
+}
+
+func InitAlert(title string, lat float32, lon float32, wx *int, temp *float32, arpress *int, wndspd *int, rhum *int, feeltmp *int, text string) (*Alert, error) {
+	id, err := InitId()
+	if err != nil {
+		return nil, xerrors.Errorf("InitId: %w", err)
+	}
+	alert, err := NewAlert(id.Ulid().String(), title, lat, lat, wx, temp, arpress, wndspd, rhum, feeltmp, text)
+	if err != nil {
+		return nil, xerrors.Errorf("NewAlert: %w", err)
+	}
+	return alert, nil
 }
 
 func (a Alert) Id() Id {

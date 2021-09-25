@@ -26,7 +26,7 @@ func NewAlertUsecase(ar repository.IAlertRepository) IAlertUsecase {
 }
 
 func (au alertUsecase) Register(ctx context.Context, title string, lat float32, lon float32, wx *int, temp *float32, arpress *int, wndspd *int, rhum *int, feeltmp *int, text string) (*entity.Alert, error) {
-	alert, err := entity.NewAlert(text, lat, lat, wx, temp, arpress, wndspd, rhum, feeltmp, text)
+	alert, err := entity.InitAlert(title, lat, lat, wx, temp, arpress, wndspd, rhum, feeltmp, text)
 	if err != nil {
 		return nil, parseEntityConstractorError(err, "entity.NewAlert")
 	}

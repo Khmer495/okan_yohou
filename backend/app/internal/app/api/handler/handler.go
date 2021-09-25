@@ -23,17 +23,17 @@ func NewHandler(au usecase.IAlertUsecase) openapi.ServerInterface {
 
 func fromEntityAlertToOpenapiAlert(alert entity.Alert) openapi.Alert {
 	return openapi.Alert{
-		Arpress: (*openapi.AlertArpress)(alert.PArpress()),
-		Feeltmp: (*openapi.AlertFeeltmp)(alert.PFeeltmp()),
+		Arpress: alert.PArpress(),
+		Feeltmp: alert.PFeeltmp(),
 		Id:      alert.Id().Ulid().String(),
 		Lat:     alert.Lat(),
 		Lon:     alert.Lon(),
-		Rhum:    (*openapi.AlertRhum)(alert.PRhum()),
+		Rhum:    alert.PRhum(),
 		Temp:    alert.PTemp(),
 		Text:    alert.Text(),
 		Title:   alert.Title(),
-		Wndspd:  (*openapi.AlertWndspd)(alert.PWndspd()),
-		Wx:      (*openapi.AlertWx)(alert.PWx()),
+		Wndspd:  alert.PWndspd(),
+		Wx:      alert.PWx(),
 	}
 }
 
@@ -64,7 +64,7 @@ func (h handler) PostAlerts(ctx echo.Context) error {
 		zap.S().Errorf("ctx.Bind: %+v", err)
 		return NewInvalidRequestFormatError(ctx, err)
 	}
-	_, err := h.au.Register(ctx.Request().Context(), req.Title, req.Lat, req.Lon, (*int)(req.Wx), req.Temp, (*int)(req.Arpress), (*int)(req.Wndspd), (*int)(req.Rhum), (*int)(req.Feeltmp), req.Text)
+	_, err := h.au.Register(ctx.Request().Context(), req.Title, req.Lat, req.Lon, req.Wx, req.Temp, req.Arpress, req.Wndspd, req.Rhum, req.Feeltmp, req.Text)
 	if err != nil {
 		zap.S().Errorf("h.au.Change: %+v", err)
 		if cerror.IsCode(err, cerror.InvalidArgumentErrorCode) {
@@ -93,7 +93,7 @@ func (h handler) PutAlertsAlertId(ctx echo.Context, alertId string) error {
 		zap.S().Errorf("ctx.Bind: %+v", err)
 		return NewInvalidRequestFormatError(ctx, err)
 	}
-	_, err := h.au.Change(ctx.Request().Context(), alertId, &req.Title, &req.Lat, &req.Lon, (*int)(req.Wx), req.Temp, (*int)(req.Arpress), (*int)(req.Wndspd), (*int)(req.Rhum), (*int)(req.Feeltmp), &req.Text)
+	_, err := h.au.Change(ctx.Request().Context(), alertId, req.Title, req.Lat, req.Lon, req.Wx, req.Temp, req.Arpress, req.Wndspd, req.Rhum, req.Feeltmp, req.Text)
 	if err != nil {
 		zap.S().Errorf("h.au.Change: %+v", err)
 		if cerror.IsCode(err, cerror.InvalidArgumentErrorCode) {
