@@ -1,7 +1,6 @@
 package di
 
 import (
-	"github.com/Khmer495/okan_yohou/internal/app/api/infrastructure/echo"
 	"go.uber.org/dig"
 	"go.uber.org/zap"
 )
@@ -27,9 +26,9 @@ func provideHandler(d *dig.Container) {
 }
 
 func invokeEchoServer(d *dig.Container) {
-	if err := d.Invoke(echo.NewEchoServer); err != nil {
-		newPanic(err)
-	}
+	// if err := d.Invoke(echo.NewEchoServer); err != nil {
+	// 	newPanic(err)
+	// }
 }
 
 func NewDig() *dig.Container {

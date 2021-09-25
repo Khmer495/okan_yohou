@@ -69,12 +69,12 @@ components:
             lat:
               description: 緯度
               type: number
-              format: double
+              format: float
               example: 35.6769883
             lon:
               description: 経度
               type: number
-              format: double
+              format: float
               example: 139.7588499
         trigger:
           properties:
@@ -87,7 +87,6 @@ components:
                 - 3
                 - 4
                 - 5
-                - null
               description: >
                 天気:
                 `1` - 晴
@@ -98,7 +97,7 @@ components:
             temp:
               description: 気温
               type: number
-              format: double
+              format: float
               example: 20.4
             arpress:
               type: integer
@@ -107,7 +106,6 @@ components:
                 - 1
                 - 2
                 - 3
-                - null
               description: >
                 気圧:
                 `1` - 高気圧
@@ -120,7 +118,6 @@ components:
                 - 1
                 - 2
                 - 3
-                - null
               description: >
                 風速:
                 `1` - ？
@@ -133,7 +130,6 @@ components:
                 - 1
                 - 2
                 - 3
-                - null
               description: >
                 湿度:
                 `1` - ？
@@ -146,7 +142,6 @@ components:
                 - 1
                 - 2
                 - 3
-                - null
               description: >
                 体感気温:
                 `1` - ？

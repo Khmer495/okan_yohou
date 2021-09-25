@@ -87,7 +87,6 @@ components:
                 - 3
                 - 4
                 - 5
-                - null
               description: >
                 天気:
                 `1` - 晴
@@ -107,7 +106,6 @@ components:
                 - 1
                 - 2
                 - 3
-                - null
               description: >
                 気圧:
                 `1` - 高気圧
@@ -120,7 +118,6 @@ components:
                 - 1
                 - 2
                 - 3
-                - null
               description: >
                 風速:
                 `1` - ？
@@ -133,7 +130,6 @@ components:
                 - 1
                 - 2
                 - 3
-                - null
               description: >
                 湿度:
                 `1` - ？
@@ -146,7 +142,6 @@ components:
                 - 1
                 - 2
                 - 3
-                - null
               description: >
                 体感気温:
                 `1` - ？
