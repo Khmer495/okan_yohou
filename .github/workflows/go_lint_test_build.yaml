@@ -134,7 +134,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP: api
-      VER: v1
     steps:
       - name: Check out
         uses: actions/checkout@v2
@@ -155,4 +154,4 @@ jobs:
 
       - name: Build
         working-directory: ${{ env.GO_DIR }}
-        run: GOARCH=amd64 GOOS=linux go build cmd/${{ env.APP }}/${{ env.VER }}/main.go
+        run: GOARCH=amd64 GOOS=linux go build cmd/${{ env.APP }}/main.go
