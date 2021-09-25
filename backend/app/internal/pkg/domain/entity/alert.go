@@ -1,24 +1,110 @@
 package entity
 
-import "golang.org/x/xerrors"
+import "github.com/Khmer495/okan_yohou/internal/pkg/util/cerror"
 
 type Alert struct {
+	id      Id
 	title   string
-	trigger Trigger
+	lat     float32
+	lon     float32
+	wx      *int
+	temp    *float32
+	arpress *int
+	wndspd  *int
+	rhum    *int
+	feeltmp *int
 	text    string
 }
 
 type Alerts []*Alert
 
-func NewAlert(title string, wx int, temp float64, arpress int, wndspd int, rhum int, feeltmp int, text string) (*Alert, error) {
-	trigger, err := NewTrigger(wx, temp, arpress, wndspd, rhum, feeltmp)
-	if err != nil {
-		return nil, xerrors.Errorf("NewTrigger: %w", err)
+func NewAlert(title string, lat float32, lon float32, wx *int, temp *float32, arpress *int, wndspd *int, rhum *int, feeltmp *int, text string) (*Alert, error) {
+	if lat < 0 || 360 < lat {
+		return nil, cerror.NewInvalidArgumentError("lat < 0 || 360 < lat", "緯度は0~360の間で指定してください。")
+	}
+	if lon < 0 || 180 < lon {
+		return nil, cerror.NewInvalidArgumentError("lon < 0 || 180 < lon", "緯度は0~180の間で指定してください。")
+	}
+	if wx != nil {
+		if *wx < 0 || 5 < *wx {
+			return nil, cerror.NewInvalidArgumentError("*wx < 0 || 5 < *wx", "天気は1~5の間で指定してください。")
+		}
+	}
+	if arpress != nil {
+		if *arpress < 0 || 3 < *arpress {
+			return nil, cerror.NewInvalidArgumentError("*arpress < 0 || 3 < *arpress", "気圧は1~3の間で指定してください。")
+		}
+	}
+	if wndspd != nil {
+		if *wndspd < 0 || 3 < *wndspd {
+			return nil, cerror.NewInvalidArgumentError("*wndspd < 0 || 3 < *wndspd", "風速は1~3の間で指定してください。")
+		}
+	}
+	if rhum != nil {
+		if *rhum < 0 || 3 < *rhum {
+			return nil, cerror.NewInvalidArgumentError("*rhum < 0 || 3 < *rhum", "湿度は1~3の間で指定してください。")
+		}
+	}
+	if feeltmp != nil {
+		if *feeltmp < 0 || 3 < *feeltmp {
+			return nil, cerror.NewInvalidArgumentError("*feeltmp < 0 || 3 < *feeltmp", "体感気温は1~3の間で指定してください。")
+		}
 	}
 	alert := Alert{
 		title:   title,
-		trigger: *trigger,
+		lat:     lat,
+		lon:     lon,
+		wx:      wx,
+		temp:    temp,
+		arpress: arpress,
+		wndspd:  wndspd,
+		rhum:    rhum,
+		feeltmp: feeltmp,
 		text:    text,
 	}
 	return &alert, nil
+}
+
+func (a Alert) Id() Id {
+	return a.id
+}
+
+func (a Alert) Title() string {
+	return a.title
+}
+
+func (a Alert) Lat() float32 {
+	return a.lat
+}
+
+func (a Alert) Lon() float32 {
+	return a.lon
+}
+
+func (a Alert) PWx() *int {
+	return a.wx
+}
+
+func (a Alert) PTemp() *float32 {
+	return a.temp
+}
+
+func (a Alert) PArpress() *int {
+	return a.arpress
+}
+
+func (a Alert) PWndspd() *int {
+	return a.wndspd
+}
+
+func (a Alert) PRhum() *int {
+	return a.rhum
+}
+
+func (a Alert) PFeeltmp() *int {
+	return a.feeltmp
+}
+
+func (a Alert) Text() string {
+	return a.text
 }

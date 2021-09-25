@@ -4,14 +4,14 @@ import "github.com/Khmer495/okan_yohou/internal/pkg/util/cerror"
 
 type Trigger struct {
 	wx      int
-	temp    float64
+	temp    float32
 	arpress int
 	wndspd  int
 	rhum    int
 	feeltmp int
 }
 
-func NewTrigger(wx int, temp float64, arpress int, wndspd int, rhum int, feeltmp int) (*Trigger, error) {
+func NewTrigger(wx int, temp float32, arpress int, wndspd int, rhum int, feeltmp int) (*Trigger, error) {
 	if wx < 0 || 5 < wx {
 		return nil, cerror.NewInvalidArgumentError("wx < 0 || 5 < wx", "天気は1~5の間で指定してください。")
 	}
@@ -36,4 +36,28 @@ func NewTrigger(wx int, temp float64, arpress int, wndspd int, rhum int, feeltmp
 		feeltmp: feeltmp,
 	}
 	return &trigger, nil
+}
+
+func (t Trigger) Wx() int {
+	return t.wx
+}
+
+func (t Trigger) Temp() float32 {
+	return t.temp
+}
+
+func (t Trigger) Arpress() int {
+	return t.arpress
+}
+
+func (t Trigger) Wndspd() int {
+	return t.wndspd
+}
+
+func (t Trigger) Rhum() int {
+	return t.rhum
+}
+
+func (t Trigger) Feeltmp() int {
+	return t.feeltmp
 }

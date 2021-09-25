@@ -9,6 +9,19 @@ paths:
   /alerts:
     get:
       summary: アラート一覧取得
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: page
+          description: ページ数
+          required: true
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: 1ページあたりの上限数
+          required: true
       responses:
         "200":
           description: OK
