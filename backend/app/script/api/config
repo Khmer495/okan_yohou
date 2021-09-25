@@ -1,0 +1,2 @@
+OPENAPI_YAML_PATH=../../docs/openapi.yaml
+OPENAPI_PKG_PATH=./internal/app/api/openapi
