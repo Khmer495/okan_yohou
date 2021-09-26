@@ -11,7 +11,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: user
-      MYSQL_DATABASE: unite
+      MYSQL_DATABASE: okan_yohou
     volumes:
       - ./mysql/init:/docker-entrypoint-initdb.d
       - ./mysql/my.cnf:/etc/my.cnf
@@ -27,13 +27,12 @@ services:
     ports:
       - 8080:8080
     environment:
-      ENV: LOCAL
       REST_PORT: 8080
       MYSQL_HOST: mysql
       MYSQL_PORT: 3306
       MYSQL_USER: root
       MYSQL_PASSWORD: root
-      MYSQL_DATABASE: unite
+      MYSQL_DATABASE: okan_yohou
     env_file:
       - .env
     volumes:

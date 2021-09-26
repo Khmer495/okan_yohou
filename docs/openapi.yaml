@@ -9,6 +9,17 @@ paths:
   /alerts:
     get:
       summary: アラート一覧取得
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: page
+          description: ページ数
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: 1ページあたりの上限数
       responses:
         "200":
           description: OK
@@ -24,10 +35,78 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Alert"
+              properties:
+                title:
+                  type: string
+                  example: 雨が降ったとき教えて！
+                lat:
+                  description: 緯度
+                  type: number
+                  format: float
+                  example: 35.6769883
+                lon:
+                  description: 経度
+                  type: number
+                  format: float
+                  example: 139.7588499
+                wx:
+                  type: integer
+                  description: >
+                    天気:
+                    `1` - 晴
+                    `2` - 曇
+                    `3` - 雨
+                    `4` - 雷
+                    `5` - 雪
+                temp:
+                  description: 気温
+                  type: number
+                  format: float
+                  example: 20.4
+                arpress:
+                  type: integer
+                  description: >
+                    気圧:
+                    `1` - 高気圧
+                    `2` - 通常
+                    `3` - 低気圧
+                wndspd:
+                  type: integer
+                  description: >
+                    風速:
+                    `1` - ？
+                    `2` - ？
+                    `3` - ？
+                rhum:
+                  type: integer
+                  description: >
+                    湿度:
+                    `1` - ？
+                    `2` - ？
+                    `3` - ？
+                feeltmp:
+                  type: integer
+                  description: >
+                    体感気温:
+                    `1` - ？
+                    `2` - ？
+                    `3` - ？
+                text:
+                  description: 通知内容
+                  type: string
+                  example: おはよう！今日は雨が降っているよ。傘を持つようにしよう！
+              required:
+                - title
+                - lat
+                - lon
+                - text
       responses:
         "201":
           description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Alert"
 
   /alerts/{alert_id}:
     parameters:
@@ -43,10 +122,73 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Alert"
+              properties:
+                title:
+                  type: string
+                  example: 雨が降ったとき教えて！
+                lat:
+                  description: 緯度
+                  type: number
+                  format: float
+                  example: 35.6769883
+                lon:
+                  description: 経度
+                  type: number
+                  format: float
+                  example: 139.7588499
+                wx:
+                  type: integer
+                  description: >
+                    天気:
+                    `1` - 晴
+                    `2` - 曇
+                    `3` - 雨
+                    `4` - 雷
+                    `5` - 雪
+                temp:
+                  description: 気温
+                  type: number
+                  format: float
+                  example: 20.4
+                arpress:
+                  type: integer
+                  description: >
+                    気圧:
+                    `1` - 高気圧
+                    `2` - 通常
+                    `3` - 低気圧
+                wndspd:
+                  type: integer
+                  description: >
+                    風速:
+                    `1` - ？
+                    `2` - ？
+                    `3` - ？
+                rhum:
+                  type: integer
+                  description: >
+                    湿度:
+                    `1` - ？
+                    `2` - ？
+                    `3` - ？
+                feeltmp:
+                  type: integer
+                  description: >
+                    体感気温:
+                    `1` - ？
+                    `2` - ？
+                    `3` - ？
+                text:
+                  description: 通知内容
+                  type: string
+                  example: おはよう！今日は雨が降っているよ。傘を持つようにしよう！
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Alert"
 
     delete:
       summary: アラート変更
@@ -64,98 +206,68 @@ components:
         title:
           type: string
           example: 雨が降ったとき教えて！
-        location:
-          properties:
-            lat:
-              description: 緯度
-              type: number
-              format: float
-              example: 35.6769883
-            lon:
-              description: 経度
-              type: number
-              format: float
-              example: 139.7588499
-        trigger:
-          properties:
-            wx:
-              type: integer
-              nullable: true
-              enum:
-                - 1
-                - 2
-                - 3
-                - 4
-                - 5
-                - null
-              description: >
-                天気:
-                `1` - 晴
-                `2` - 曇
-                `3` - 雨
-                `4` - 雷
-                `5` - 雪
-            temp:
-              description: 気温
-              type: number
-              format: float
-              example: 20.4
-            arpress:
-              type: integer
-              nullable: true
-              enum:
-                - 1
-                - 2
-                - 3
-                - null
-              description: >
-                気圧:
-                `1` - 高気圧
-                `2` - 通常
-                `3` - 低気圧
-            wndspd:
-              type: integer
-              nullable: true
-              enum:
-                - 1
-                - 2
-                - 3
-                - null
-              description: >
-                風速:
-                `1` - ？
-                `2` - ？
-                `3` - ？
-            rhum:
-              type: integer
-              nullable: true
-              enum:
-                - 1
-                - 2
-                - 3
-                - null
-              description: >
-                湿度:
-                `1` - ？
-                `2` - ？
-                `3` - ？
-            feeltmp:
-              type: integer
-              nullable: true
-              enum:
-                - 1
-                - 2
-                - 3
-                - null
-              description: >
-                体感気温:
-                `1` - ？
-                `2` - ？
-                `3` - ？
+        lat:
+          description: 緯度
+          type: number
+          format: float
+          example: 35.6769883
+        lon:
+          description: 経度
+          type: number
+          format: float
+          example: 139.7588499
+        wx:
+          type: integer
+          description: >
+            天気:
+            `1` - 晴
+            `2` - 曇
+            `3` - 雨
+            `4` - 雷
+            `5` - 雪
+        temp:
+          description: 気温
+          type: number
+          format: float
+          example: 20.4
+        arpress:
+          type: integer
+          description: >
+            気圧:
+            `1` - 高気圧
+            `2` - 通常
+            `3` - 低気圧
+        wndspd:
+          type: integer
+          description: >
+            風速:
+            `1` - ？
+            `2` - ？
+            `3` - ？
+        rhum:
+          type: integer
+          description: >
+            湿度:
+            `1` - ？
+            `2` - ？
+            `3` - ？
+        feeltmp:
+          type: integer
+          description: >
+            体感気温:
+            `1` - ？
+            `2` - ？
+            `3` - ？
         text:
           description: 通知内容
           type: string
           example: おはよう！今日は雨が降っているよ。傘を持つようにしよう！
+      required:
+        - id
+        - title
+        - lat
+        - lon
+        - text
 
   securitySchemes:
     Bearer:
