@@ -24,7 +24,7 @@ class ApiClient {
       {required API api, required FormData data}) async {
     try {
       dio.options.headers['content-Type'] = 'application/json';
-      final response = await dio.post(apiDomain() + version() + endPoint(api),
+      final response = await dio.post(apiDomain() +  endPoint(api),
           data: data, options: Options(responseType: ResponseType.json));
       if (response.statusCode == 201) {
         return response;
@@ -47,7 +47,7 @@ class ApiClient {
     dio.options.headers['content-Type'] = 'application/json';
     try {
       final response = await dio.get(
-        apiDomain() + version() + endPoint(api) + requiredIds + '/',
+        apiDomain() +  endPoint(api) + requiredIds + '/',
         queryParameters: null,
         options: Options(responseType: ResponseType.json),
       );
@@ -65,10 +65,10 @@ class ApiClient {
     }
   }
 
-  Future<Response> post({required API api, FormData? data}) async {
+  Future<Response> post({required API api, Map<String, dynamic>? data}) async {
     dio.options.headers = getAccessTokenHeader();
     try {
-      final response = await dio.post(apiDomain() + version() + endPoint(api),
+      final response = await dio.post(apiDomain() + endPoint(api),
           options: Options(responseType: ResponseType.json), data: data);
       if (response.statusCode == 200 ||
           response.statusCode == 201 ||
@@ -94,7 +94,7 @@ class ApiClient {
     dio.options.headers = getAccessTokenHeader();
     try {
       final response = await dio.patch(
-        apiDomain() + version() + endPoint(api) + requiredId + '/',
+        apiDomain() +  endPoint(api) + requiredId + '/',
         data: data,
         options: Options(responseType: ResponseType.json),
       );
@@ -120,7 +120,7 @@ class ApiClient {
     dio.options.headers = getAccessTokenHeader();
     try {
       final response = await dio.delete(
-        apiDomain() + version() + endPoint(api) +requiredId+ '/',
+        apiDomain() +  endPoint(api) +requiredId+ '/',
         // data: data,
         options: Options(responseType: ResponseType.json),
       );
@@ -141,7 +141,7 @@ class ApiClient {
   Future<Response> upload({required API api, FormData? data}) async {
     dio.options.headers = getAccessTokenHeader();
     try {
-      final response = await dio.post(apiDomain() + version() + endPoint(api),
+      final response = await dio.post(apiDomain() +  endPoint(api),
           data: data, options: Options(responseType: ResponseType.json));
       if (response.statusCode == 200) {
         return response;
@@ -165,7 +165,7 @@ class ApiClient {
 
     try {
       final response = await dio.get(
-        apiDomain() + version() + endPoint(api),
+        apiDomain() +  endPoint(api),
         queryParameters: parameter,
         options: Options(responseType: ResponseType.json),
       );
@@ -191,7 +191,7 @@ class ApiClient {
     dio.options.headers = getAccessTokenHeader();
     try {
       final response = await dio.get(
-        apiDomain() + version() + endPoint(api) + requiredIds + '/',
+        apiDomain() +  endPoint(api) + requiredIds + '/',
         queryParameters: parameter,
         options: Options(responseType: ResponseType.json),
       );
@@ -217,7 +217,7 @@ class ApiClient {
     print(getAccessTokenHeader());
     try {
       final response = await dio.post(
-          apiDomain() + version() + endPoint(api) + requiredIds + '/',
+          apiDomain() +  endPoint(api) + requiredIds + '/',
           options: Options(responseType: ResponseType.json),
           data: data);
       if (response.statusCode == 201 || response.statusCode == 200) {
@@ -242,7 +242,7 @@ class ApiClient {
     dio.options.headers = await getAccessTokenHeader();
     try {
       final response = await dio.patch(
-        apiDomain() + version() + endPoint(api) + requiredId + '/',
+        apiDomain() +  endPoint(api) + requiredId + '/',
         data: data,
         options: Options(responseType: ResponseType.json),
       );
@@ -269,7 +269,7 @@ class ApiClient {
     dio.options.headers['channelName'] = 'abc';
     try {
       final response = await dio.post(
-        apiDomain() + version() + endPoint(api) ,
+        apiDomain() +  endPoint(api) ,
         // queryParameters: parameter,
         // options: Options(responseType: ResponseType.json),
       );

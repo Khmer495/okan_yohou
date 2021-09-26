@@ -107,10 +107,21 @@ class AlertEdit extends StatelessWidget {
     return Column(
       children: [
         EasyAlertRadio(),
-        CommonTextButton(
-          text: '登録する',
-          onPressed: (context) async{
-            print('AAA');
+        OutlinedButton(
+          child: Container(
+              padding: EdgeInsets.symmetric(vertical: 10,horizontal: 40),
+              child: Text('登録する',style:TextStyle(fontSize: 19) ,)
+          ),
+          style: OutlinedButton.styleFrom(
+            primary: ConstantsColors.black,
+            backgroundColor: ConstantsColors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            side: BorderSide(width: 3),
+          ),
+          onPressed: (){
+            model.postAlert();
           },
         ),
       ],

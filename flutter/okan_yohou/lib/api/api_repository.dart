@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart' hide Headers;
+import 'package:okanyohou/api/model/alert_model.dart';
 import 'api_client.dart';
 import 'api_endpoint.dart';
 import 'api_response.dart';
@@ -29,6 +30,42 @@ class ApiRepository {
 
   late ApiClient _client;
   bool isDebug = false;
+
+
+  // ユーザーがobjectiveRoomに参加しているかを確認する
+  Future<ApiResponse> postAlert({required Map<String, dynamic> parameter})async {
+    try {
+      final response = await _client.post(api: API.alerts,data: parameter);
+      final responseData =
+        AlertModel.fromJson(response.data as Map<String, dynamic>);
+
+      if (response.statusCode == 200) {
+        if (responseData != null){
+          return ApiResponse(
+              apiStatus: ApiResponseType.notFound,
+              result: null);
+        }else {
+          return ApiResponse(
+              apiStatus: ApiResponseType.ok,
+              result: responseData);
+        }
+      } else {
+        return ApiResponse(
+            apiStatus: ApiResponseType.badRequest,
+            result: null);
+      }
+    } on DioError catch (e) {
+      throw DioError(
+        response: e.response,
+        type: DioErrorType.response,
+        requestOptions: RequestOptions(path: ''),
+      );
+    } on Exception catch (_) {
+      print("user exist other error");
+      print(_);
+      rethrow;
+    }
+  }
 
 
 

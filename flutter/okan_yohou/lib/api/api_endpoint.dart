@@ -5,6 +5,6 @@ enum API {
 String endPoint(API api) {
   switch (api) {
       case API.alerts:
-      return 'alerts/';
+      return 'alerts';
   }
 }
