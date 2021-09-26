@@ -105,3 +105,7 @@ func (h handler) PutAlertsAlertId(ctx echo.Context, alertId string) error {
 	res := fromEntityAlertToOpenapiAlert(*alert)
 	return ctx.JSON(http.StatusOK, res)
 }
+
+func (h handler) GetNotifications(ctx echo.Context) error {
+	return nil
+}

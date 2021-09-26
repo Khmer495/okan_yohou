@@ -25,6 +25,9 @@ type ServerInterface interface {
 	// アラート変更
 	// (PUT /alerts/{alert_id})
 	PutAlertsAlertId(ctx echo.Context, alertId string) error
+	// 通知取得
+	// (GET /notifications)
+	GetNotifications(ctx echo.Context) error
 }
 
 // ServerInterfaceWrapper converts echo contexts to parameters.
@@ -98,6 +101,15 @@ func (w *ServerInterfaceWrapper) PutAlertsAlertId(ctx echo.Context) error {
 	return err
 }
 
+// GetNotifications converts echo context to params.
+func (w *ServerInterfaceWrapper) GetNotifications(ctx echo.Context) error {
+	var err error
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.GetNotifications(ctx)
+	return err
+}
+
 // This is a simple interface which specifies echo.Route addition functions which
 // are present on both echo.Echo and echo.Group, since we want to allow using
 // either of them for path registration
@@ -130,6 +142,7 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 	router.POST(baseURL+"/alerts", wrapper.PostAlerts)
 	router.DELETE(baseURL+"/alerts/:alert_id", wrapper.DeleteAlertsAlertId)
 	router.PUT(baseURL+"/alerts/:alert_id", wrapper.PutAlertsAlertId)
+	router.GET(baseURL+"/notifications", wrapper.GetNotifications)
 
 }
 

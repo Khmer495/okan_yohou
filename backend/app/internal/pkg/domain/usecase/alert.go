@@ -13,6 +13,7 @@ type IAlertUsecase interface {
 	List(ctx context.Context, limit *int, page *int) (entity.Alerts, error)
 	Change(ctx context.Context, alertId string, title *string, lat *float32, lon *float32, wx *int, temp *float32, arpress *int, wndspd *int, rhum *int, feeltmp *int, text *string) (*entity.Alert, error)
 	Delete(ctx context.Context, alertId string) error
+	Notify(ctx context.Context) (int, error)
 }
 
 type alertUsecase struct {
@@ -101,4 +102,8 @@ func (au alertUsecase) Delete(ctx context.Context, alertIdString string) error {
 		return cerror.WrapInternalServerError(err, "au.ar.Delete")
 	}
 	return nil
+}
+
+func (au alertUsecase) Notify(ctx context.Context) (int, error) {
+	return 0, nil
 }
