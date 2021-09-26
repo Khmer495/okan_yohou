@@ -33,29 +33,53 @@ func NewAlert(idString string, title string, latFloat float64, lonFloat float64,
 	if err != nil {
 		return nil, xerrors.Errorf("NewLatLon: %w", err)
 	}
-	wx, err := NewWx(*wxInt)
-	if err != nil {
-		return nil, xerrors.Errorf("NewWx: %w", err)
+	var wx *Wx = nil
+	if wxInt != nil {
+		var err error
+		wx, err = NewWx(*wxInt)
+		if err != nil {
+			return nil, xerrors.Errorf("NewWx: %w", err)
+		}
 	}
-	temp, err := NewTemp(*tempFloat)
-	if err != nil {
-		return nil, xerrors.Errorf("NewTemp: %w", err)
+	var temp *Temp = nil
+	if tempFloat != nil {
+		var err error
+		temp, err = NewTemp(*tempFloat)
+		if err != nil {
+			return nil, xerrors.Errorf("NewTemp: %w", err)
+		}
 	}
-	arpress, err := NewArpress(*arpressInt)
-	if err != nil {
-		return nil, xerrors.Errorf("NewArpress: %w", err)
+	var arpress *Arpress = nil
+	if arpressInt != nil {
+		var err error
+		arpress, err = NewArpress(*arpressInt)
+		if err != nil {
+			return nil, xerrors.Errorf("NewArpress: %w", err)
+		}
 	}
-	wndspd, err := NewWndspd(*wndspdInt)
-	if err != nil {
-		return nil, xerrors.Errorf("NewWndspd: %w", err)
+	var wndspd *Wndspd = nil
+	if wndspd != nil {
+		var err error
+		wndspd, err = NewWndspd(*wndspdInt)
+		if err != nil {
+			return nil, xerrors.Errorf("NewWndspd: %w", err)
+		}
 	}
-	rhum, err := NewRhum(*rhumInt)
-	if err != nil {
-		return nil, xerrors.Errorf("NewRhum: %w", err)
+	var rhum *Rhum = nil
+	if rhumInt != nil {
+		var err error
+		rhum, err = NewRhum(*rhumInt)
+		if err != nil {
+			return nil, xerrors.Errorf("NewRhum: %w", err)
+		}
 	}
-	feeltmp, err := NewFeeltmp(*feeltmpInt)
-	if err != nil {
-		return nil, xerrors.Errorf("NewFeeltmp: %w", err)
+	var feeltmp *Feeltmp = nil
+	if feeltmpInt != nil {
+		var err error
+		feeltmp, err = NewFeeltmp(*feeltmpInt)
+		if err != nil {
+			return nil, xerrors.Errorf("NewFeeltmp: %w", err)
+		}
 	}
 
 	alert := Alert{
@@ -79,7 +103,7 @@ func InitAlert(title string, lat float64, lon float64, wx *int, temp *float64, a
 	if err != nil {
 		return nil, xerrors.Errorf("InitId: %w", err)
 	}
-	alert, err := NewAlert(id.Ulid().String(), title, lat, lat, wx, temp, arpress, wndspd, rhum, feeltmp, text)
+	alert, err := NewAlert(id.Ulid().String(), title, lat, lon, wx, temp, arpress, wndspd, rhum, feeltmp, text)
 	if err != nil {
 		return nil, xerrors.Errorf("NewAlert: %w", err)
 	}

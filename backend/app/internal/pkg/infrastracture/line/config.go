@@ -15,9 +15,17 @@ var channelSecret = func() string {
 }()
 
 var channelToken = func() string {
-	val, ok := os.LookupEnv("CHANNEL_TOKEN")
+	val, ok := os.LookupEnv("LINE_CHANNEL_ACCESS_TOKEN")
 	if !ok {
-		zap.L().Panic(`os.LookupEnv("CHANNEL_TOKEN")`)
+		zap.L().Panic(`os.LookupEnv("LINE_CHANNEL_ACCESS_TOKEN")`)
+	}
+	return val
+}()
+
+var toUser = func() string {
+	val, ok := os.LookupEnv("LINE_TO_USER")
+	if !ok {
+		zap.L().Panic(`os.LookupEnv("LINE_TO_USER")`)
 	}
 	return val
 }()

@@ -15,7 +15,7 @@ type srf struct {
 	Date    time.Time `json:"date"`
 	Wx      int       `json:"wx"`
 	Temp    float64   `json:"temp"`
-	Prec    int       `json:"prec"`
+	Prec    float64   `json:"prec"`
 	Arpress float64   `json:"arpress"`
 	Wndspd  float64   `json:"wndspd"`
 	Wnddir  int       `json:"wnddir"`
