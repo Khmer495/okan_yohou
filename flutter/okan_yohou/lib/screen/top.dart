@@ -15,6 +15,7 @@ class Top extends StatelessWidget {
         .of(context)
         .size
         .height;
+    List<String> title=['雨が降った時教えて！','寒くなる時は教えて','気圧が低い時教えて','じめじめの時教えて'];
     return ChangeNotifierProvider<TopViewModel>(
         create: (_) => TopViewModel()..init(),
         child: GestureDetector(
@@ -36,7 +37,8 @@ class Top extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Container(child: Image.asset('assets/images/okan_logo.png'),
+                            Container(child:
+                            Image.asset('assets/images/okanyohou_logo.png'),
                               margin:EdgeInsets.only(bottom:30),
                             ),
                             Text('天気や気圧の変化におかんが気づいて教えてくれます。　例えば晴れと思っていても「傘持って行き」とおかんに言われたら素直に持っていきましょう！',
@@ -60,9 +62,9 @@ class Top extends StatelessWidget {
                                   // physics:,
                                   reverse: true,
                                   scrollDirection: Axis.vertical,
-                                  itemCount: 10,
+                                  itemCount: 4,
                                   itemBuilder: (context, index){
-                                    return alertItem('$index 雨が降った時を教えて！');
+                                    return alertItem(title[index],model,index);
                                   }
                               ),
                             ),
@@ -89,7 +91,7 @@ class Top extends StatelessWidget {
                             SizedBox(height: 15,),
                             CommonTextButton(text: '- 削除する',
                               onPressed: (context) async{
-                                model.getAlerts();
+                                // model.getAlerts();
                                 print('AAA');
                             },),
                           ],
@@ -101,7 +103,7 @@ class Top extends StatelessWidget {
         )
     );
   }
-  Widget alertItem(String text){
+  Widget alertItem(String text,TopViewModel model,int index){
     return Container(
       margin: EdgeInsets.only(bottom: 30),
       child: Row(
@@ -116,7 +118,7 @@ class Top extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
             ),
             padding: EdgeInsets.symmetric(vertical: 20,horizontal: 10),
-            child:Text('雨が降った時を教えて！',style: TextStyle(fontSize: 20),),
+            child:Text(text,style: TextStyle(fontSize: 20),),
           )
         ],
       ),

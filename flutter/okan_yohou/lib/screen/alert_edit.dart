@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:okanyohou/components/radio.dart';
 import 'package:okanyohou/components/text_button.dart';
+import 'package:okanyohou/screen/top.dart';
 import 'package:okanyohou/screen/view_model/alert_edit_view_model.dart';
 import 'package:okanyohou/util/color.dart';
 import 'package:provider/provider.dart';
@@ -65,7 +66,7 @@ class AlertEdit extends StatelessWidget {
                                 ],
                               ),
                               model.simpleAccordion
-                                  ?alertSimple(model)
+                                  ?alertSimple(context,model)
                                   :Container(),
                               Container(
                                 padding: EdgeInsets.symmetric(vertical: 20),
@@ -103,7 +104,7 @@ class AlertEdit extends StatelessWidget {
     );
   }
 
-  Widget alertSimple(AlertEditViewModel model){
+  Widget alertSimple(BuildContext context,AlertEditViewModel model){
     return Column(
       children: [
         EasyAlertRadio(),
@@ -121,11 +122,41 @@ class AlertEdit extends StatelessWidget {
             side: BorderSide(width: 3),
           ),
           onPressed: (){
-            model.postAlert();
+            returnButtonDialog(context, '登録されました', 'OK');
           },
         ),
       ],
     );
+  }
+
+  /// ボタンを推したら戻る
+  void returnButtonDialog(BuildContext context, String title, String buttonText,
+      {String? contentText, bool barrier = false}) {
+    var content;
+    if (contentText == null) {
+      content = null;
+    } else {
+      content = Text(contentText);
+    }
+
+    showDialog(
+        barrierDismissible: barrier, // ダイアログ領域外をタップした時に閉じるか
+        context: context,
+        builder: (_) => CupertinoAlertDialog(
+          title: Text(title),
+          content: content,
+          actions: [
+            // Close the dialog
+            CupertinoButton(
+                child: Text(buttonText),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Top(),
+                      ));
+                }),
+          ],
+        ));
   }
 
   Widget alertDetail(AlertEditViewModel model){

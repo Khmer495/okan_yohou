@@ -68,5 +68,25 @@ class ApiRepository {
   }
 
 
+  Future<ApiResponse> getAlerts() async {
+    try {
+      final response = await _client.get(api: API.alerts);
+      List<dynamic> responseData = response.data;
+      if (response.statusCode == 200) {
+        return ApiResponse(
+            apiStatus: ApiResponseType.ok, result: responseData);
+      } else {
+        throw DioError(
+          response: response,
+          type: DioErrorType.response,
+          requestOptions: RequestOptions(path: ''),
+        );
+      }
+    } on DioError catch (e) {
+      throw (e);
+    } on Exception catch (_) {
+      rethrow;
+    }
+  }
 
 }
