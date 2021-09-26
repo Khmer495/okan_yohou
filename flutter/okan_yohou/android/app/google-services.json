@@ -1,0 +1,70 @@
+{
+  "project_info": {
+    "project_number": "935744301812",
+    "project_id": "gamehub-14132",
+    "storage_bucket": "gamehub-14132.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:935744301812:android:6c83b7b5fb79b8962d4ca1",
+        "android_client_info": {
+          "package_name": "com.electoria.gamehub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "935744301812-4vpcdgv40dvcgifibm3m8c0lnvkdlkko.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.electoria.gamehub",
+            "certificate_hash": "9fab374c50861f0f0574f20144c4ee54b3938673"
+          }
+        },
+        {
+          "client_id": "935744301812-74pkoj82ncq5uc1ihiqhoqpfifpg6v4d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.electoria.gamehub",
+            "certificate_hash": "02c934b568420f5e4aa5e16db35bc2d12d88f707"
+          }
+        },
+        {
+          "client_id": "935744301812-9lj5lv9knlqtjplbtdtq8mvkhfuldrfa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.electoria.gamehub",
+            "certificate_hash": "fce5e9a177b5c772a986b93c16fdd755d0827718"
+          }
+        },
+        {
+          "client_id": "935744301812-8brno7ktr1rjtht5mp5j3lissjuqg7tj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACPIoYivV2waptaGZUWucdkTXvZ1ckbn4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "935744301812-8brno7ktr1rjtht5mp5j3lissjuqg7tj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "935744301812-plh24meb0afhug17l30irtja4e5qmmuc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.electoria.gamehub"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
