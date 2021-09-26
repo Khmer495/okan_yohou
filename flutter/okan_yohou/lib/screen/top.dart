@@ -89,6 +89,7 @@ class Top extends StatelessWidget {
                             SizedBox(height: 15,),
                             CommonTextButton(text: '- 削除する',
                               onPressed: (context) async{
+                                model.getAlerts();
                                 print('AAA');
                             },),
                           ],
