@@ -109,6 +109,7 @@ func (h handler) PutAlertsAlertId(ctx echo.Context, alertId string) error {
 func (h handler) GetAlertsAlertIdNotifications(ctx echo.Context, alertId string) error {
 	err := h.au.Notify(ctx.Request().Context(), alertId)
 	if err != nil {
+		zap.S().Errorf("h.au.Notify: %+v", err)
 		return ctx.JSON(http.StatusInternalServerError, err)
 	}
 	return ctx.NoContent(http.StatusNoContent)

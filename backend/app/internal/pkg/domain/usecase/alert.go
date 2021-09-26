@@ -30,7 +30,7 @@ func NewAlertUsecase(ar repository.IAlertRepository) IAlertUsecase {
 }
 
 func (au alertUsecase) Register(ctx context.Context, title string, lat float64, lon float64, wx *int, temp *float64, arpress *int, wndspd *int, rhum *int, feeltmp *int, text string) (*entity.Alert, error) {
-	alert, err := entity.InitAlert(title, lat, lat, wx, temp, arpress, wndspd, rhum, feeltmp, text)
+	alert, err := entity.InitAlert(title, lat, lon, wx, temp, arpress, wndspd, rhum, feeltmp, text)
 	if err != nil {
 		return nil, parseEntityConstractorError(err, "entity.NewAlert")
 	}
@@ -154,15 +154,19 @@ func (au alertUsecase) Notify(ctx context.Context, alertIdString string) error {
 	// nowAt := time.Now()
 	// nowYMDH_JST := time.Date(nowAt.Year(), nowAt.Month(), nowAt.Day(), nowAt.Hour(), 0, 0, 0, util.JST)
 	srf := forcast.Wxdata[0].Srfs[0]
-	flag := alert.PArpress().IsTriggered(srf.Arpress) &&
-		alert.PFeeltmp().IsTriggered(srf.Feeltmp) &&
-		alert.PRhum().IsTriggered(srf.Rhum) &&
-		alert.PTemp().IsTriggered(srf.Temp) &&
-		alert.PWndspd().IsTriggered(srf.Wndspd) &&
-		alert.PWx().IsTriggered(srf.Wx)
-	if !flag {
-		return nil
-	}
+
+	// ここから------デモ用に消している
+	// flag := alert.PArpress().IsTriggered(srf.Arpress) &&
+	// 	alert.PFeeltmp().IsTriggered(srf.Feeltmp) &&
+	// 	alert.PRhum().IsTriggered(srf.Rhum) &&
+	// 	alert.PTemp().IsTriggered(srf.Temp) &&
+	// 	alert.PWndspd().IsTriggered(srf.Wndspd) &&
+	// 	alert.PWx().IsTriggered(srf.Wx)
+	// if !flag {
+	// 	return nil
+	// }
+	// ここまで------デモ用に消している
+
 	message := fmt.Sprintf("Title: %s\nText: %s\n気圧: %g\n体感気温: %g\n湿度: %d\n気温: %g\n風速: %g\n天気: %d", alert.Title(), alert.Text(),
 		srf.Arpress, srf.Feeltmp, srf.Rhum, srf.Temp, srf.Wndspd, srf.Wx)
 	err = line.PushMessage(message)
