@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:okanyohou/components/radio.dart';
 import 'package:okanyohou/components/text_button.dart';
 import 'package:okanyohou/screen/view_model/alert_edit_view_model.dart';
-import 'package:okanyohou/screen/view_model/top_view_model.dart';
 import 'package:okanyohou/util/color.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/svg.dart';
@@ -14,9 +13,7 @@ class AlertEdit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     String _type = '';
-
     return ChangeNotifierProvider<AlertEditViewModel>(
         create: (_) => AlertEditViewModel()..init(),
         child: GestureDetector(
@@ -105,6 +102,7 @@ class AlertEdit extends StatelessWidget {
         )
     );
   }
+
   Widget alertSimple(AlertEditViewModel model){
     return Column(
       children: [
@@ -124,74 +122,22 @@ class AlertEdit extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('タイトル',
-            style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
-          ),
-          TextField(
-            controller: model.titleController,
-          ),
-          Text('場所',
-            style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
-          ),
-          // todo 場所のラジオボタン
-          Text('気温',
-            style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
-          ),
-          TextField(
-            controller: model.temperatureController,
-            keyboardType: TextInputType.text,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            keyboardAppearance: Brightness.light,
-            maxLines: 1,
-            style:
-            TextStyle(fontSize: 16.0, color: Colors.black), //入力文字のサイズと色
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: ConstantsColors.gray2,
-              hintText: '表示される名前（登録後変更可）',
-              hintStyle: TextStyle(
-                fontSize: 11.0,
-              ),
-              contentPadding: EdgeInsets.all(10),
-              enabledBorder: OutlineInputBorder(
-                borderSide:
-                  BorderSide(color: ConstantsColors.black,width: 3), //　未選択時の下線の色
-                borderRadius: BorderRadius.circular(8),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: ConstantsColors.black,width: 3),
-                borderRadius: BorderRadius.circular(8),
-              ),
-
-            ),
-            onChanged: (String value) {
-              print(value);
-              // editingController.text = value;
-            }),
-
-          Text('湿度',
-            style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
-          ),
-          // todo 湿度ラジオ
-          Text('風速',
-            style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
-          ),
-          // todo ラジオ
-          Text('気圧',
-            style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
-          ),
-          // todo ラジオ
-          Text('体感温度',
-            style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
-          ),
-          // todo ラジオ
-          Text('通知文の編集',
-            style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
-          ),
-          TextField(
-              controller: model.contentController,
-            // minLines: 5,
-          ),
+          titleText('タイトル'),
+          inputField(model.titleController,'雨が降った時を教えて'),
+          titleText('場所'),
+          PlaceAlertRadio(),
+          titleText('気温'),
+          inputField(model.temperatureController,'22℃'),
+          titleText('湿度'),
+          HumidityAlertRadio(),
+          titleText('風速'),
+          WindAlertRadio(),
+          titleText('気圧'),
+          PressAlertRadio(),
+          titleText('体感温度'),
+          FeelAlertRadio(),
+          titleText('通知文の編集'),
+          inputField(model.contentController, 'おはよう！今日昼から雨降るから傘忘れんと持っていきや'),
           Center(
             child: CommonTextButton(
               text: '登録する',
@@ -203,38 +149,51 @@ class AlertEdit extends StatelessWidget {
       ),
     );
   }
-  Widget inputField(AlertEditViewModel model){
-    return TextField(
-        controller: model.temperatureController,
-        keyboardType: TextInputType.text,
-        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        keyboardAppearance: Brightness.light,
-        maxLines: 1,
-        style:
-        TextStyle(fontSize: 16.0, color: Colors.black), //入力文字のサイズと色
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: ConstantsColors.gray2,
-          hintText: '表示される名前（登録後変更可）',
-          hintStyle: TextStyle(
-            fontSize: 11.0,
-          ),
-          contentPadding: EdgeInsets.all(10),
-          enabledBorder: OutlineInputBorder(
-            borderSide:
-            BorderSide(color: ConstantsColors.black,width: 3), //　未選択時の下線の色
-            borderRadius: BorderRadius.circular(8),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ConstantsColors.black,width: 3),
-            borderRadius: BorderRadius.circular(8),
-          ),
 
-        ),
-        onChanged: (String value) {
-          print(value);
-          // editingController.text = value;
-        });
+  Widget inputField(TextEditingController controller,String hintText){
+    return Container(
+      margin: EdgeInsets.only(bottom: 10,top: 20),
+      child: TextField(
+          controller: controller,
+          keyboardType: TextInputType.text,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          keyboardAppearance: Brightness.light,
+          maxLines: 1,
+          style:
+          TextStyle(fontSize: 16.0, color: Colors.black), //入力文字のサイズと色
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: ConstantsColors.gray2,
+            hintText: hintText,
+            hintStyle: TextStyle(
+              fontSize: 11.0,
+            ),
+            contentPadding: EdgeInsets.all(10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+              BorderSide(color: ConstantsColors.black,width: 3), //　未選択時の下線の色
+              borderRadius: BorderRadius.circular(8),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: ConstantsColors.black,width: 3),
+              borderRadius: BorderRadius.circular(8),
+            ),
+
+          ),
+          onChanged: (String value) {
+            print(value);
+            // editingController.text = value;
+          }),
+    );
+  }
+
+  Widget titleText(String title){
+    return  Container(
+      margin: EdgeInsets.only(top: 20),
+      child: Text(title,
+        style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+      ),
+    );
   }
 
 }

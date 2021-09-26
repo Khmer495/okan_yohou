@@ -26,7 +26,9 @@ class CommonTextButton extends StatelessWidget {
           ),
           side: BorderSide(width: 3),
         ),
-        onPressed: () {},
+        onPressed: () {
+          onPressed;
+        },
       );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:okanyohou/components/text_button.dart';
+import 'package:okanyohou/screen/alert_edit.dart';
 import 'package:okanyohou/screen/view_model/top_view_model.dart';
 import 'package:okanyohou/util/color.dart';
 import 'package:provider/provider.dart';
@@ -41,7 +42,7 @@ class Top extends StatelessWidget {
                             Text('天気や気圧の変化におかんが気づいて教えてくれます。　例えば晴れと思っていても「傘持って行き」とおかんに言われたら素直に持っていきましょう！',
                                 style:  TextStyle(color:ConstantsColors.white)),
                             Container(
-                              margin: EdgeInsets.only(top:30),
+                              margin: EdgeInsets.only(top:30,bottom:10),
                               child: Text(
                                 "登録おかん",
                                 style: TextStyle(
@@ -65,12 +66,26 @@ class Top extends StatelessWidget {
                                   }
                               ),
                             ),
-
-                            CommonTextButton(
-                              text: '+ 追加する',
-                              onPressed: (context) async{
-                                print('AAA');
-                            },),
+                            OutlinedButton(
+                              child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 10,horizontal: 40),
+                                  child: Text('+ 追加する',style:TextStyle(fontSize: 19) ,)
+                              ),
+                              style: OutlinedButton.styleFrom(
+                                primary: ConstantsColors.black,
+                                backgroundColor: ConstantsColors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                side: BorderSide(width: 3),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => AlertEdit(),
+                                    ));
+                              },
+                            ),
                             SizedBox(height: 15,),
                             CommonTextButton(text: '- 削除する',
                               onPressed: (context) async{
