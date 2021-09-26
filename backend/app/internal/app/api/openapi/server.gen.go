@@ -26,8 +26,8 @@ type ServerInterface interface {
 	// (PUT /alerts/{alert_id})
 	PutAlertsAlertId(ctx echo.Context, alertId string) error
 	// 通知取得
-	// (GET /notifications)
-	GetNotifications(ctx echo.Context) error
+	// (GET /alerts/{alert_id}/notifications)
+	GetAlertsAlertIdNotifications(ctx echo.Context, alertId string) error
 }
 
 // ServerInterfaceWrapper converts echo contexts to parameters.
@@ -101,12 +101,19 @@ func (w *ServerInterfaceWrapper) PutAlertsAlertId(ctx echo.Context) error {
 	return err
 }
 
-// GetNotifications converts echo context to params.
-func (w *ServerInterfaceWrapper) GetNotifications(ctx echo.Context) error {
+// GetAlertsAlertIdNotifications converts echo context to params.
+func (w *ServerInterfaceWrapper) GetAlertsAlertIdNotifications(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "alert_id" -------------
+	var alertId string
+
+	err = runtime.BindStyledParameterWithLocation("simple", false, "alert_id", runtime.ParamLocationPath, ctx.Param("alert_id"), &alertId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter alert_id: %s", err))
+	}
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetNotifications(ctx)
+	err = w.Handler.GetAlertsAlertIdNotifications(ctx, alertId)
 	return err
 }
 
@@ -142,7 +149,7 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 	router.POST(baseURL+"/alerts", wrapper.PostAlerts)
 	router.DELETE(baseURL+"/alerts/:alert_id", wrapper.DeleteAlertsAlertId)
 	router.PUT(baseURL+"/alerts/:alert_id", wrapper.PutAlertsAlertId)
-	router.GET(baseURL+"/notifications", wrapper.GetNotifications)
+	router.GET(baseURL+"/alerts/:alert_id/notifications", wrapper.GetAlertsAlertIdNotifications)
 
 }
 

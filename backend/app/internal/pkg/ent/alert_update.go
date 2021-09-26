@@ -54,27 +54,27 @@ func (au *AlertUpdate) SetTitle(s string) *AlertUpdate {
 }
 
 // SetLat sets the "lat" field.
-func (au *AlertUpdate) SetLat(f float32) *AlertUpdate {
+func (au *AlertUpdate) SetLat(f float64) *AlertUpdate {
 	au.mutation.ResetLat()
 	au.mutation.SetLat(f)
 	return au
 }
 
 // AddLat adds f to the "lat" field.
-func (au *AlertUpdate) AddLat(f float32) *AlertUpdate {
+func (au *AlertUpdate) AddLat(f float64) *AlertUpdate {
 	au.mutation.AddLat(f)
 	return au
 }
 
 // SetLon sets the "lon" field.
-func (au *AlertUpdate) SetLon(f float32) *AlertUpdate {
+func (au *AlertUpdate) SetLon(f float64) *AlertUpdate {
 	au.mutation.ResetLon()
 	au.mutation.SetLon(f)
 	return au
 }
 
 // AddLon adds f to the "lon" field.
-func (au *AlertUpdate) AddLon(f float32) *AlertUpdate {
+func (au *AlertUpdate) AddLon(f float64) *AlertUpdate {
 	au.mutation.AddLon(f)
 	return au
 }
@@ -107,14 +107,14 @@ func (au *AlertUpdate) ClearWx() *AlertUpdate {
 }
 
 // SetTemp sets the "temp" field.
-func (au *AlertUpdate) SetTemp(f float32) *AlertUpdate {
+func (au *AlertUpdate) SetTemp(f float64) *AlertUpdate {
 	au.mutation.ResetTemp()
 	au.mutation.SetTemp(f)
 	return au
 }
 
 // SetNillableTemp sets the "temp" field if the given value is not nil.
-func (au *AlertUpdate) SetNillableTemp(f *float32) *AlertUpdate {
+func (au *AlertUpdate) SetNillableTemp(f *float64) *AlertUpdate {
 	if f != nil {
 		au.SetTemp(*f)
 	}
@@ -122,7 +122,7 @@ func (au *AlertUpdate) SetNillableTemp(f *float32) *AlertUpdate {
 }
 
 // AddTemp adds f to the "temp" field.
-func (au *AlertUpdate) AddTemp(f float32) *AlertUpdate {
+func (au *AlertUpdate) AddTemp(f float64) *AlertUpdate {
 	au.mutation.AddTemp(f)
 	return au
 }
@@ -362,28 +362,28 @@ func (au *AlertUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := au.mutation.Lat(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeFloat64,
 			Value:  value,
 			Column: alert.FieldLat,
 		})
 	}
 	if value, ok := au.mutation.AddedLat(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeFloat64,
 			Value:  value,
 			Column: alert.FieldLat,
 		})
 	}
 	if value, ok := au.mutation.Lon(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeFloat64,
 			Value:  value,
 			Column: alert.FieldLon,
 		})
 	}
 	if value, ok := au.mutation.AddedLon(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeFloat64,
 			Value:  value,
 			Column: alert.FieldLon,
 		})
@@ -410,21 +410,21 @@ func (au *AlertUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := au.mutation.Temp(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeFloat64,
 			Value:  value,
 			Column: alert.FieldTemp,
 		})
 	}
 	if value, ok := au.mutation.AddedTemp(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeFloat64,
 			Value:  value,
 			Column: alert.FieldTemp,
 		})
 	}
 	if au.mutation.TempCleared() {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeFloat64,
 			Column: alert.FieldTemp,
 		})
 	}
@@ -561,27 +561,27 @@ func (auo *AlertUpdateOne) SetTitle(s string) *AlertUpdateOne {
 }
 
 // SetLat sets the "lat" field.
-func (auo *AlertUpdateOne) SetLat(f float32) *AlertUpdateOne {
+func (auo *AlertUpdateOne) SetLat(f float64) *AlertUpdateOne {
 	auo.mutation.ResetLat()
 	auo.mutation.SetLat(f)
 	return auo
 }
 
 // AddLat adds f to the "lat" field.
-func (auo *AlertUpdateOne) AddLat(f float32) *AlertUpdateOne {
+func (auo *AlertUpdateOne) AddLat(f float64) *AlertUpdateOne {
 	auo.mutation.AddLat(f)
 	return auo
 }
 
 // SetLon sets the "lon" field.
-func (auo *AlertUpdateOne) SetLon(f float32) *AlertUpdateOne {
+func (auo *AlertUpdateOne) SetLon(f float64) *AlertUpdateOne {
 	auo.mutation.ResetLon()
 	auo.mutation.SetLon(f)
 	return auo
 }
 
 // AddLon adds f to the "lon" field.
-func (auo *AlertUpdateOne) AddLon(f float32) *AlertUpdateOne {
+func (auo *AlertUpdateOne) AddLon(f float64) *AlertUpdateOne {
 	auo.mutation.AddLon(f)
 	return auo
 }
@@ -614,14 +614,14 @@ func (auo *AlertUpdateOne) ClearWx() *AlertUpdateOne {
 }
 
 // SetTemp sets the "temp" field.
-func (auo *AlertUpdateOne) SetTemp(f float32) *AlertUpdateOne {
+func (auo *AlertUpdateOne) SetTemp(f float64) *AlertUpdateOne {
 	auo.mutation.ResetTemp()
 	auo.mutation.SetTemp(f)
 	return auo
 }
 
 // SetNillableTemp sets the "temp" field if the given value is not nil.
-func (auo *AlertUpdateOne) SetNillableTemp(f *float32) *AlertUpdateOne {
+func (auo *AlertUpdateOne) SetNillableTemp(f *float64) *AlertUpdateOne {
 	if f != nil {
 		auo.SetTemp(*f)
 	}
@@ -629,7 +629,7 @@ func (auo *AlertUpdateOne) SetNillableTemp(f *float32) *AlertUpdateOne {
 }
 
 // AddTemp adds f to the "temp" field.
-func (auo *AlertUpdateOne) AddTemp(f float32) *AlertUpdateOne {
+func (auo *AlertUpdateOne) AddTemp(f float64) *AlertUpdateOne {
 	auo.mutation.AddTemp(f)
 	return auo
 }
@@ -893,28 +893,28 @@ func (auo *AlertUpdateOne) sqlSave(ctx context.Context) (_node *Alert, err error
 	}
 	if value, ok := auo.mutation.Lat(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeFloat64,
 			Value:  value,
 			Column: alert.FieldLat,
 		})
 	}
 	if value, ok := auo.mutation.AddedLat(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeFloat64,
 			Value:  value,
 			Column: alert.FieldLat,
 		})
 	}
 	if value, ok := auo.mutation.Lon(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeFloat64,
 			Value:  value,
 			Column: alert.FieldLon,
 		})
 	}
 	if value, ok := auo.mutation.AddedLon(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeFloat64,
 			Value:  value,
 			Column: alert.FieldLon,
 		})
@@ -941,21 +941,21 @@ func (auo *AlertUpdateOne) sqlSave(ctx context.Context) (_node *Alert, err error
 	}
 	if value, ok := auo.mutation.Temp(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeFloat64,
 			Value:  value,
 			Column: alert.FieldTemp,
 		})
 	}
 	if value, ok := auo.mutation.AddedTemp(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeFloat64,
 			Value:  value,
 			Column: alert.FieldTemp,
 		})
 	}
 	if auo.mutation.TempCleared() {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeFloat64,
 			Column: alert.FieldTemp,
 		})
 	}

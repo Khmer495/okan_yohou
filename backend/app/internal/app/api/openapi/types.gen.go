@@ -13,16 +13,16 @@ type Alert struct {
 	Id      string `json:"id"`
 
 	// 緯度
-	Lat float32 `json:"lat"`
+	Lat float64 `json:"lat"`
 
 	// 経度
-	Lon float32 `json:"lon"`
+	Lon float64 `json:"lon"`
 
 	// 湿度: `1` - ？ `2` - ？ `3` - ？
 	Rhum *int `json:"rhum,omitempty"`
 
 	// 気温
-	Temp *float32 `json:"temp,omitempty"`
+	Temp *float64 `json:"temp,omitempty"`
 
 	// 通知内容
 	Text  string `json:"text"`
@@ -53,16 +53,16 @@ type PostAlertsJSONBody struct {
 	Feeltmp *int `json:"feeltmp,omitempty"`
 
 	// 緯度
-	Lat float32 `json:"lat"`
+	Lat float64 `json:"lat"`
 
 	// 経度
-	Lon float32 `json:"lon"`
+	Lon float64 `json:"lon"`
 
 	// 湿度: `1` - ？ `2` - ？ `3` - ？
 	Rhum *int `json:"rhum,omitempty"`
 
 	// 気温
-	Temp *float32 `json:"temp,omitempty"`
+	Temp *float64 `json:"temp,omitempty"`
 
 	// 通知内容
 	Text  string `json:"text"`
@@ -84,16 +84,16 @@ type PutAlertsAlertIdJSONBody struct {
 	Feeltmp *int `json:"feeltmp,omitempty"`
 
 	// 緯度
-	Lat *float32 `json:"lat,omitempty"`
+	Lat *float64 `json:"lat,omitempty"`
 
 	// 経度
-	Lon *float32 `json:"lon,omitempty"`
+	Lon *float64 `json:"lon,omitempty"`
 
 	// 湿度: `1` - ？ `2` - ？ `3` - ？
 	Rhum *int `json:"rhum,omitempty"`
 
 	// 気温
-	Temp *float32 `json:"temp,omitempty"`
+	Temp *float64 `json:"temp,omitempty"`
 
 	// 通知内容
 	Text  *string `json:"text,omitempty"`

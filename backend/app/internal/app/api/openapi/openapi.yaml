@@ -42,12 +42,12 @@ paths:
                 lat:
                   description: 緯度
                   type: number
-                  format: float
+                  format: double
                   example: 35.6769883
                 lon:
                   description: 経度
                   type: number
-                  format: float
+                  format: double
                   example: 139.7588499
                 wx:
                   type: integer
@@ -61,7 +61,7 @@ paths:
                 temp:
                   description: 気温
                   type: number
-                  format: float
+                  format: double
                   example: 20.4
                 arpress:
                   type: integer
@@ -129,12 +129,12 @@ paths:
                 lat:
                   description: 緯度
                   type: number
-                  format: float
+                  format: double
                   example: 35.6769883
                 lon:
                   description: 経度
                   type: number
-                  format: float
+                  format: double
                   example: 139.7588499
                 wx:
                   type: integer
@@ -148,7 +148,7 @@ paths:
                 temp:
                   description: 気温
                   type: number
-                  format: float
+                  format: double
                   example: 20.4
                 arpress:
                   type: integer
@@ -196,7 +196,14 @@ paths:
         "204":
           description: No Content
 
-  /notifications:
+  /alerts/{alert_id}/notifications:
+    parameters:
+      - schema:
+          type: string
+        name: alert_id
+        in: path
+        required: true
+
     get:
       summary: 通知取得
       responses:
@@ -223,12 +230,12 @@ components:
         lat:
           description: 緯度
           type: number
-          format: float
+          format: double
           example: 35.6769883
         lon:
           description: 経度
           type: number
-          format: float
+          format: double
           example: 139.7588499
         wx:
           type: integer
@@ -242,7 +249,7 @@ components:
         temp:
           description: 気温
           type: number
-          format: float
+          format: double
           example: 20.4
         arpress:
           type: integer

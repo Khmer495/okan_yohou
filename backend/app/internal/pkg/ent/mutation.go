@@ -37,14 +37,14 @@ type AlertMutation struct {
 	updated_at    *time.Time
 	deleted_at    *time.Time
 	title         *string
-	lat           *float32
-	addlat        *float32
-	lon           *float32
-	addlon        *float32
+	lat           *float64
+	addlat        *float64
+	lon           *float64
+	addlon        *float64
 	wx            *int
 	addwx         *int
-	temp          *float32
-	addtemp       *float32
+	temp          *float64
+	addtemp       *float64
 	arpress       *int
 	addarpress    *int
 	wndspd        *int
@@ -333,13 +333,13 @@ func (m *AlertMutation) ResetTitle() {
 }
 
 // SetLat sets the "lat" field.
-func (m *AlertMutation) SetLat(f float32) {
+func (m *AlertMutation) SetLat(f float64) {
 	m.lat = &f
 	m.addlat = nil
 }
 
 // Lat returns the value of the "lat" field in the mutation.
-func (m *AlertMutation) Lat() (r float32, exists bool) {
+func (m *AlertMutation) Lat() (r float64, exists bool) {
 	v := m.lat
 	if v == nil {
 		return
@@ -350,7 +350,7 @@ func (m *AlertMutation) Lat() (r float32, exists bool) {
 // OldLat returns the old "lat" field's value of the Alert entity.
 // If the Alert object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *AlertMutation) OldLat(ctx context.Context) (v float32, err error) {
+func (m *AlertMutation) OldLat(ctx context.Context) (v float64, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, fmt.Errorf("OldLat is only allowed on UpdateOne operations")
 	}
@@ -365,7 +365,7 @@ func (m *AlertMutation) OldLat(ctx context.Context) (v float32, err error) {
 }
 
 // AddLat adds f to the "lat" field.
-func (m *AlertMutation) AddLat(f float32) {
+func (m *AlertMutation) AddLat(f float64) {
 	if m.addlat != nil {
 		*m.addlat += f
 	} else {
@@ -374,7 +374,7 @@ func (m *AlertMutation) AddLat(f float32) {
 }
 
 // AddedLat returns the value that was added to the "lat" field in this mutation.
-func (m *AlertMutation) AddedLat() (r float32, exists bool) {
+func (m *AlertMutation) AddedLat() (r float64, exists bool) {
 	v := m.addlat
 	if v == nil {
 		return
@@ -389,13 +389,13 @@ func (m *AlertMutation) ResetLat() {
 }
 
 // SetLon sets the "lon" field.
-func (m *AlertMutation) SetLon(f float32) {
+func (m *AlertMutation) SetLon(f float64) {
 	m.lon = &f
 	m.addlon = nil
 }
 
 // Lon returns the value of the "lon" field in the mutation.
-func (m *AlertMutation) Lon() (r float32, exists bool) {
+func (m *AlertMutation) Lon() (r float64, exists bool) {
 	v := m.lon
 	if v == nil {
 		return
@@ -406,7 +406,7 @@ func (m *AlertMutation) Lon() (r float32, exists bool) {
 // OldLon returns the old "lon" field's value of the Alert entity.
 // If the Alert object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *AlertMutation) OldLon(ctx context.Context) (v float32, err error) {
+func (m *AlertMutation) OldLon(ctx context.Context) (v float64, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, fmt.Errorf("OldLon is only allowed on UpdateOne operations")
 	}
@@ -421,7 +421,7 @@ func (m *AlertMutation) OldLon(ctx context.Context) (v float32, err error) {
 }
 
 // AddLon adds f to the "lon" field.
-func (m *AlertMutation) AddLon(f float32) {
+func (m *AlertMutation) AddLon(f float64) {
 	if m.addlon != nil {
 		*m.addlon += f
 	} else {
@@ -430,7 +430,7 @@ func (m *AlertMutation) AddLon(f float32) {
 }
 
 // AddedLon returns the value that was added to the "lon" field in this mutation.
-func (m *AlertMutation) AddedLon() (r float32, exists bool) {
+func (m *AlertMutation) AddedLon() (r float64, exists bool) {
 	v := m.addlon
 	if v == nil {
 		return
@@ -515,13 +515,13 @@ func (m *AlertMutation) ResetWx() {
 }
 
 // SetTemp sets the "temp" field.
-func (m *AlertMutation) SetTemp(f float32) {
+func (m *AlertMutation) SetTemp(f float64) {
 	m.temp = &f
 	m.addtemp = nil
 }
 
 // Temp returns the value of the "temp" field in the mutation.
-func (m *AlertMutation) Temp() (r float32, exists bool) {
+func (m *AlertMutation) Temp() (r float64, exists bool) {
 	v := m.temp
 	if v == nil {
 		return
@@ -532,7 +532,7 @@ func (m *AlertMutation) Temp() (r float32, exists bool) {
 // OldTemp returns the old "temp" field's value of the Alert entity.
 // If the Alert object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *AlertMutation) OldTemp(ctx context.Context) (v *float32, err error) {
+func (m *AlertMutation) OldTemp(ctx context.Context) (v *float64, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, fmt.Errorf("OldTemp is only allowed on UpdateOne operations")
 	}
@@ -547,7 +547,7 @@ func (m *AlertMutation) OldTemp(ctx context.Context) (v *float32, err error) {
 }
 
 // AddTemp adds f to the "temp" field.
-func (m *AlertMutation) AddTemp(f float32) {
+func (m *AlertMutation) AddTemp(f float64) {
 	if m.addtemp != nil {
 		*m.addtemp += f
 	} else {
@@ -556,7 +556,7 @@ func (m *AlertMutation) AddTemp(f float32) {
 }
 
 // AddedTemp returns the value that was added to the "temp" field in this mutation.
-func (m *AlertMutation) AddedTemp() (r float32, exists bool) {
+func (m *AlertMutation) AddedTemp() (r float64, exists bool) {
 	v := m.addtemp
 	if v == nil {
 		return
@@ -1080,14 +1080,14 @@ func (m *AlertMutation) SetField(name string, value ent.Value) error {
 		m.SetTitle(v)
 		return nil
 	case alert.FieldLat:
-		v, ok := value.(float32)
+		v, ok := value.(float64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetLat(v)
 		return nil
 	case alert.FieldLon:
-		v, ok := value.(float32)
+		v, ok := value.(float64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -1101,7 +1101,7 @@ func (m *AlertMutation) SetField(name string, value ent.Value) error {
 		m.SetWx(v)
 		return nil
 	case alert.FieldTemp:
-		v, ok := value.(float32)
+		v, ok := value.(float64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -1208,14 +1208,14 @@ func (m *AlertMutation) AddedField(name string) (ent.Value, bool) {
 func (m *AlertMutation) AddField(name string, value ent.Value) error {
 	switch name {
 	case alert.FieldLat:
-		v, ok := value.(float32)
+		v, ok := value.(float64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddLat(v)
 		return nil
 	case alert.FieldLon:
-		v, ok := value.(float32)
+		v, ok := value.(float64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -1229,7 +1229,7 @@ func (m *AlertMutation) AddField(name string, value ent.Value) error {
 		m.AddWx(v)
 		return nil
 	case alert.FieldTemp:
-		v, ok := value.(float32)
+		v, ok := value.(float64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}

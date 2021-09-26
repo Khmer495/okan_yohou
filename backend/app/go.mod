@@ -8,6 +8,7 @@ require (
 	github.com/getkin/kin-openapi v0.76.0
 	github.com/go-sql-driver/mysql v1.5.1-0.20200311113236-681ffa848bae
 	github.com/labstack/echo/v4 v4.6.0
+	github.com/line/line-bot-sdk-go/v7 v7.10.1
 	github.com/oklog/ulid/v2 v2.0.2
 	go.uber.org/dig v1.13.0
 	go.uber.org/zap v1.19.1

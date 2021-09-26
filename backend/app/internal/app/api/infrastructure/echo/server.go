@@ -32,5 +32,5 @@ func NewEchoServer(openapiHandler openapi.ServerInterface) {
 	e.GET("/health", func(c echo.Context) error { return c.NoContent(http.StatusOK) })
 	openapi.RegisterHandlers(e, openapiHandler)
 
-	e.Logger.Fatal(e.Start(fmt.Sprintf("0.0.0.0:%s", appconfig.RestPort)))
+	e.Logger.Panic(e.Start(fmt.Sprintf("0.0.0.0:%s", appconfig.RestPort)))
 }

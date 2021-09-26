@@ -7,17 +7,17 @@ import (
 )
 
 var apiEndpoint = func() string {
-	key, ok := os.LookupEnv("WEATHER_NEWS_API_ENDPOINT")
+	val, ok := os.LookupEnv("WEATHER_NEWS_API_ENDPOINT")
 	if !ok {
-		zap.L().Fatal(`os.LookupEnv("WEATHER_NEWS_API_ENDPOINT")`)
+		zap.L().Panic(`os.LookupEnv("WEATHER_NEWS_API_ENDPOINT")`)
 	}
-	return key
+	return val
 }()
 
 var apiKey = func() string {
-	key, ok := os.LookupEnv("WEATHER_NEWS_API_KEY")
+	val, ok := os.LookupEnv("WEATHER_NEWS_API_KEY")
 	if !ok {
-		zap.L().Fatal(`os.LookupEnv("WEATHER_NEWS_API_KEY")`)
+		zap.L().Panic(`os.LookupEnv("WEATHER_NEWS_API_KEY")`)
 	}
-	return key
+	return val
 }()

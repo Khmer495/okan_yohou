@@ -27,13 +27,13 @@ type Alert struct {
 	// Title holds the value of the "title" field.
 	Title string `json:"title,omitempty"`
 	// Lat holds the value of the "lat" field.
-	Lat float32 `json:"lat,omitempty"`
+	Lat float64 `json:"lat,omitempty"`
 	// Lon holds the value of the "lon" field.
-	Lon float32 `json:"lon,omitempty"`
+	Lon float64 `json:"lon,omitempty"`
 	// Wx holds the value of the "wx" field.
 	Wx *int `json:"wx,omitempty"`
 	// Temp holds the value of the "temp" field.
-	Temp *float32 `json:"temp,omitempty"`
+	Temp *float64 `json:"temp,omitempty"`
 	// Arpress holds the value of the "arpress" field.
 	Arpress *int `json:"arpress,omitempty"`
 	// Wndspd holds the value of the "wndspd" field.
@@ -115,13 +115,13 @@ func (a *Alert) assignValues(columns []string, values []interface{}) error {
 			if value, ok := values[i].(*sql.NullFloat64); !ok {
 				return fmt.Errorf("unexpected type %T for field lat", values[i])
 			} else if value.Valid {
-				a.Lat = float32(value.Float64)
+				a.Lat = value.Float64
 			}
 		case alert.FieldLon:
 			if value, ok := values[i].(*sql.NullFloat64); !ok {
 				return fmt.Errorf("unexpected type %T for field lon", values[i])
 			} else if value.Valid {
-				a.Lon = float32(value.Float64)
+				a.Lon = value.Float64
 			}
 		case alert.FieldWx:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -134,8 +134,8 @@ func (a *Alert) assignValues(columns []string, values []interface{}) error {
 			if value, ok := values[i].(*sql.NullFloat64); !ok {
 				return fmt.Errorf("unexpected type %T for field temp", values[i])
 			} else if value.Valid {
-				a.Temp = new(float32)
-				*a.Temp = float32(value.Float64)
+				a.Temp = new(float64)
+				*a.Temp = value.Float64
 			}
 		case alert.FieldArpress:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
