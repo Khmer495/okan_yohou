@@ -1,6 +1,6 @@
-# gamehub
+# okanyohou
 
-A new Flutter project.
+sigyoit_hackathon
 
 ## Getting Started
 

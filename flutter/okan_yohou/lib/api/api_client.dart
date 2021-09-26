@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart' hide Headers;
-import 'package:gamehub/manager/my_data_manager.dart';
-import 'package:gamehub/utils/base_url.dart';
+import 'package:okanyohou/util/base_url.dart';
 
 import 'api_endpoint.dart';
 
@@ -11,8 +10,7 @@ class ApiClient {
   static ApiClient? _instance;
 
   Map<String, dynamic> getAccessTokenHeader() {
-    final token = MyDataManager.instance.getAccessToken();
-
+    final token = '';
     if (token != null) {
       return <String, dynamic>{
         'content-type': 'application/json',
