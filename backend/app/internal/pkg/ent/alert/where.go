@@ -128,14 +128,14 @@ func Title(v string) predicate.Alert {
 }
 
 // Lat applies equality check predicate on the "lat" field. It's identical to LatEQ.
-func Lat(v float32) predicate.Alert {
+func Lat(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldLat), v))
 	})
 }
 
 // Lon applies equality check predicate on the "lon" field. It's identical to LonEQ.
-func Lon(v float32) predicate.Alert {
+func Lon(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldLon), v))
 	})
@@ -149,7 +149,7 @@ func Wx(v int) predicate.Alert {
 }
 
 // Temp applies equality check predicate on the "temp" field. It's identical to TempEQ.
-func Temp(v float32) predicate.Alert {
+func Temp(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldTemp), v))
 	})
@@ -655,21 +655,21 @@ func TitleContainsFold(v string) predicate.Alert {
 }
 
 // LatEQ applies the EQ predicate on the "lat" field.
-func LatEQ(v float32) predicate.Alert {
+func LatEQ(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldLat), v))
 	})
 }
 
 // LatNEQ applies the NEQ predicate on the "lat" field.
-func LatNEQ(v float32) predicate.Alert {
+func LatNEQ(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldLat), v))
 	})
 }
 
 // LatIn applies the In predicate on the "lat" field.
-func LatIn(vs ...float32) predicate.Alert {
+func LatIn(vs ...float64) predicate.Alert {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -686,7 +686,7 @@ func LatIn(vs ...float32) predicate.Alert {
 }
 
 // LatNotIn applies the NotIn predicate on the "lat" field.
-func LatNotIn(vs ...float32) predicate.Alert {
+func LatNotIn(vs ...float64) predicate.Alert {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -703,49 +703,49 @@ func LatNotIn(vs ...float32) predicate.Alert {
 }
 
 // LatGT applies the GT predicate on the "lat" field.
-func LatGT(v float32) predicate.Alert {
+func LatGT(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldLat), v))
 	})
 }
 
 // LatGTE applies the GTE predicate on the "lat" field.
-func LatGTE(v float32) predicate.Alert {
+func LatGTE(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldLat), v))
 	})
 }
 
 // LatLT applies the LT predicate on the "lat" field.
-func LatLT(v float32) predicate.Alert {
+func LatLT(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldLat), v))
 	})
 }
 
 // LatLTE applies the LTE predicate on the "lat" field.
-func LatLTE(v float32) predicate.Alert {
+func LatLTE(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldLat), v))
 	})
 }
 
 // LonEQ applies the EQ predicate on the "lon" field.
-func LonEQ(v float32) predicate.Alert {
+func LonEQ(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldLon), v))
 	})
 }
 
 // LonNEQ applies the NEQ predicate on the "lon" field.
-func LonNEQ(v float32) predicate.Alert {
+func LonNEQ(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldLon), v))
 	})
 }
 
 // LonIn applies the In predicate on the "lon" field.
-func LonIn(vs ...float32) predicate.Alert {
+func LonIn(vs ...float64) predicate.Alert {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -762,7 +762,7 @@ func LonIn(vs ...float32) predicate.Alert {
 }
 
 // LonNotIn applies the NotIn predicate on the "lon" field.
-func LonNotIn(vs ...float32) predicate.Alert {
+func LonNotIn(vs ...float64) predicate.Alert {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -779,28 +779,28 @@ func LonNotIn(vs ...float32) predicate.Alert {
 }
 
 // LonGT applies the GT predicate on the "lon" field.
-func LonGT(v float32) predicate.Alert {
+func LonGT(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldLon), v))
 	})
 }
 
 // LonGTE applies the GTE predicate on the "lon" field.
-func LonGTE(v float32) predicate.Alert {
+func LonGTE(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldLon), v))
 	})
 }
 
 // LonLT applies the LT predicate on the "lon" field.
-func LonLT(v float32) predicate.Alert {
+func LonLT(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldLon), v))
 	})
 }
 
 // LonLTE applies the LTE predicate on the "lon" field.
-func LonLTE(v float32) predicate.Alert {
+func LonLTE(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldLon), v))
 	})
@@ -897,21 +897,21 @@ func WxNotNil() predicate.Alert {
 }
 
 // TempEQ applies the EQ predicate on the "temp" field.
-func TempEQ(v float32) predicate.Alert {
+func TempEQ(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldTemp), v))
 	})
 }
 
 // TempNEQ applies the NEQ predicate on the "temp" field.
-func TempNEQ(v float32) predicate.Alert {
+func TempNEQ(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldTemp), v))
 	})
 }
 
 // TempIn applies the In predicate on the "temp" field.
-func TempIn(vs ...float32) predicate.Alert {
+func TempIn(vs ...float64) predicate.Alert {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -928,7 +928,7 @@ func TempIn(vs ...float32) predicate.Alert {
 }
 
 // TempNotIn applies the NotIn predicate on the "temp" field.
-func TempNotIn(vs ...float32) predicate.Alert {
+func TempNotIn(vs ...float64) predicate.Alert {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -945,28 +945,28 @@ func TempNotIn(vs ...float32) predicate.Alert {
 }
 
 // TempGT applies the GT predicate on the "temp" field.
-func TempGT(v float32) predicate.Alert {
+func TempGT(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldTemp), v))
 	})
 }
 
 // TempGTE applies the GTE predicate on the "temp" field.
-func TempGTE(v float32) predicate.Alert {
+func TempGTE(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldTemp), v))
 	})
 }
 
 // TempLT applies the LT predicate on the "temp" field.
-func TempLT(v float32) predicate.Alert {
+func TempLT(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldTemp), v))
 	})
 }
 
 // TempLTE applies the LTE predicate on the "temp" field.
-func TempLTE(v float32) predicate.Alert {
+func TempLTE(v float64) predicate.Alert {
 	return predicate.Alert(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldTemp), v))
 	})

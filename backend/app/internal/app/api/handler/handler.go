@@ -23,17 +23,17 @@ func NewHandler(au usecase.IAlertUsecase) openapi.ServerInterface {
 
 func fromEntityAlertToOpenapiAlert(alert entity.Alert) openapi.Alert {
 	return openapi.Alert{
-		Arpress: alert.PArpress(),
-		Feeltmp: alert.PFeeltmp(),
+		Arpress: alert.PArpress().PInt(),
+		Feeltmp: alert.PFeeltmp().PInt(),
 		Id:      alert.Id().Ulid().String(),
-		Lat:     alert.Lat(),
-		Lon:     alert.Lon(),
-		Rhum:    alert.PRhum(),
-		Temp:    alert.PTemp(),
+		Lat:     alert.Lat().Float(),
+		Lon:     alert.Lon().Float(),
+		Rhum:    alert.PRhum().PInt(),
+		Temp:    alert.PTemp().PFloat64(),
 		Text:    alert.Text(),
 		Title:   alert.Title(),
-		Wndspd:  alert.PWndspd(),
-		Wx:      alert.PWx(),
+		Wndspd:  alert.PWndspd().PInt(),
+		Wx:      alert.PWx().PInt(),
 	}
 }
 
@@ -106,6 +106,10 @@ func (h handler) PutAlertsAlertId(ctx echo.Context, alertId string) error {
 	return ctx.JSON(http.StatusOK, res)
 }
 
-func (h handler) GetNotifications(ctx echo.Context) error {
-	return nil
+func (h handler) GetAlertsAlertIdNotifications(ctx echo.Context, alertId string) error {
+	err := h.au.Notify(ctx.Request().Context(), alertId)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	return ctx.NoContent(http.StatusNoContent)
 }

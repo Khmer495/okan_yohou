@@ -75,13 +75,13 @@ func (ac *AlertCreate) SetTitle(s string) *AlertCreate {
 }
 
 // SetLat sets the "lat" field.
-func (ac *AlertCreate) SetLat(f float32) *AlertCreate {
+func (ac *AlertCreate) SetLat(f float64) *AlertCreate {
 	ac.mutation.SetLat(f)
 	return ac
 }
 
 // SetLon sets the "lon" field.
-func (ac *AlertCreate) SetLon(f float32) *AlertCreate {
+func (ac *AlertCreate) SetLon(f float64) *AlertCreate {
 	ac.mutation.SetLon(f)
 	return ac
 }
@@ -101,13 +101,13 @@ func (ac *AlertCreate) SetNillableWx(i *int) *AlertCreate {
 }
 
 // SetTemp sets the "temp" field.
-func (ac *AlertCreate) SetTemp(f float32) *AlertCreate {
+func (ac *AlertCreate) SetTemp(f float64) *AlertCreate {
 	ac.mutation.SetTemp(f)
 	return ac
 }
 
 // SetNillableTemp sets the "temp" field if the given value is not nil.
-func (ac *AlertCreate) SetNillableTemp(f *float32) *AlertCreate {
+func (ac *AlertCreate) SetNillableTemp(f *float64) *AlertCreate {
 	if f != nil {
 		ac.SetTemp(*f)
 	}
@@ -349,7 +349,7 @@ func (ac *AlertCreate) createSpec() (*Alert, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := ac.mutation.Lat(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeFloat64,
 			Value:  value,
 			Column: alert.FieldLat,
 		})
@@ -357,7 +357,7 @@ func (ac *AlertCreate) createSpec() (*Alert, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := ac.mutation.Lon(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeFloat64,
 			Value:  value,
 			Column: alert.FieldLon,
 		})
@@ -373,7 +373,7 @@ func (ac *AlertCreate) createSpec() (*Alert, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := ac.mutation.Temp(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeFloat64,
 			Value:  value,
 			Column: alert.FieldTemp,
 		})

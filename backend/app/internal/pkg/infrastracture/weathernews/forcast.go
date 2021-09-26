@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/Khmer495/okan_yohou/internal/pkg/domain/entity"
 	"github.com/Khmer495/okan_yohou/internal/pkg/util/cerror"
 )
 
@@ -15,12 +16,12 @@ type srf struct {
 	Wx      int       `json:"wx"`
 	Temp    float64   `json:"temp"`
 	Prec    int       `json:"prec"`
-	Arpress int       `json:"arpress"`
+	Arpress float64   `json:"arpress"`
 	Wndspd  float64   `json:"wndspd"`
 	Wnddir  int       `json:"wnddir"`
 	Rhum    int       `json:"rhum"`
 	Feelidx int       `json:"feelidx"`
-	Feeltmp int       `json:"feeltmp"`
+	Feeltmp float64   `json:"feeltmp"`
 }
 
 type mrf struct {
@@ -49,7 +50,7 @@ type response struct {
 	Errors    []apiError `json:"error"`
 }
 
-func Forcast(lat float32, lon float32) (*response, error) {
+func Forcast(lat entity.LatLon, lon entity.LatLon) (*response, error) {
 	req, err := http.NewRequest("GET", apiEndpoint, nil)
 	if err != nil {
 		return nil, cerror.WrapInternalServerError(err, "http.NewRequest")
@@ -58,8 +59,8 @@ func Forcast(lat float32, lon float32) (*response, error) {
 	req.Header.Set("X-API-Key", apiKey)
 
 	params := req.URL.Query()
-	params.Add("lat", fmt.Sprint(lat))
-	params.Add("lon", fmt.Sprint(lon))
+	params.Add("lat", fmt.Sprint(lat.Float()))
+	params.Add("lon", fmt.Sprint(lon.Float()))
 	req.URL.RawQuery = params.Encode()
 
 	client := http.Client{}

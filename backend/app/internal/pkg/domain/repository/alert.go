@@ -40,14 +40,14 @@ func (ar AlertRepository) Create(ctx context.Context, a entity.Alert) error {
 		SetCreatedAt(now.Time()).
 		SetUpdatedAt(now.Time()).
 		SetTitle(a.Title()).
-		SetLat(a.Lat()).
-		SetLon(a.Lon()).
-		SetNillableWx(a.PWx()).
-		SetNillableTemp(a.PTemp()).
-		SetNillableArpress(a.PArpress()).
-		SetNillableWndspd(a.PWndspd()).
-		SetNillableRhum(a.PRhum()).
-		SetNillableFeeltmp(a.PFeeltmp()).
+		SetLat(a.Lat().Float()).
+		SetLon(a.Lon().Float()).
+		SetNillableWx(a.PWx().PInt()).
+		SetNillableTemp(a.PTemp().PFloat64()).
+		SetNillableArpress(a.PArpress().PInt()).
+		SetNillableWndspd(a.PWndspd().PInt()).
+		SetNillableRhum(a.PRhum().PInt()).
+		SetNillableFeeltmp(a.PFeeltmp().PInt()).
 		SetText(a.Text()).
 		Save(ctx)
 	if err != nil {
@@ -105,14 +105,14 @@ func (ar AlertRepository) Update(ctx context.Context, a entity.Alert) error {
 		}
 		_, err = tx.Alert.UpdateOneID(alert.ID).
 			SetTitle(a.Title()).
-			SetLat(a.Lat()).
-			SetLon(a.Lon()).
-			SetNillableWx(a.PWx()).
-			SetNillableTemp(a.PTemp()).
-			SetNillableArpress(a.PArpress()).
-			SetNillableWndspd(a.PWndspd()).
-			SetNillableRhum(a.PRhum()).
-			SetNillableFeeltmp(a.PFeeltmp()).
+			SetLat(a.Lat().Float()).
+			SetLon(a.Lon().Float()).
+			SetNillableWx(a.PWx().PInt()).
+			SetNillableTemp(a.PTemp().PFloat64()).
+			SetNillableArpress(a.PArpress().PInt()).
+			SetNillableWndspd(a.PWndspd().PInt()).
+			SetNillableRhum(a.PRhum().PInt()).
+			SetNillableFeeltmp(a.PFeeltmp().PInt()).
 			SetText(a.Text()).
 			Save(ctx)
 		if err != nil {

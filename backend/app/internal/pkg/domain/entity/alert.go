@@ -1,67 +1,68 @@
 package entity
 
 import (
-	"github.com/Khmer495/okan_yohou/internal/pkg/util/cerror"
 	"golang.org/x/xerrors"
 )
 
 type Alert struct {
 	id      Id
 	title   string
-	lat     float32
-	lon     float32
-	wx      *int
-	temp    *float32
-	arpress *int
-	wndspd  *int
-	rhum    *int
-	feeltmp *int
+	lat     LatLon
+	lon     LatLon
+	wx      *Wx
+	temp    *Temp
+	arpress *Arpress
+	wndspd  *Wndspd
+	rhum    *Rhum
+	feeltmp *Feeltmp
 	text    string
 }
 
 type Alerts []*Alert
 
-func NewAlert(idString string, title string, lat float32, lon float32, wx *int, temp *float32, arpress *int, wndspd *int, rhum *int, feeltmp *int, text string) (*Alert, error) {
+func NewAlert(idString string, title string, latFloat float64, lonFloat float64, wxInt *int, tempFloat *float64, arpressInt *int, wndspdInt *int, rhumInt *int, feeltmpInt *int, text string) (*Alert, error) {
 	id, err := NewId(idString)
 	if err != nil {
 		return nil, xerrors.Errorf("NewId: %w", err)
 	}
-	if lat < 0 || 360 < lat {
-		return nil, cerror.NewInvalidArgumentError("lat < 0 || 360 < lat", "緯度は0~360の間で指定してください。")
+	lat, err := NewLatLon(latFloat)
+	if err != nil {
+		return nil, xerrors.Errorf("NewLatLon: %w", err)
 	}
-	if lon < 0 || 180 < lon {
-		return nil, cerror.NewInvalidArgumentError("lon < 0 || 180 < lon", "緯度は0~180の間で指定してください。")
+	lon, err := NewLatLon(lonFloat)
+	if err != nil {
+		return nil, xerrors.Errorf("NewLatLon: %w", err)
 	}
-	if wx != nil {
-		if *wx < 0 || 5 < *wx {
-			return nil, cerror.NewInvalidArgumentError("*wx < 0 || 5 < *wx", "天気は1~5の間で指定してください。")
-		}
+	wx, err := NewWx(*wxInt)
+	if err != nil {
+		return nil, xerrors.Errorf("NewWx: %w", err)
 	}
-	if arpress != nil {
-		if *arpress < 0 || 3 < *arpress {
-			return nil, cerror.NewInvalidArgumentError("*arpress < 0 || 3 < *arpress", "気圧は1~3の間で指定してください。")
-		}
+	temp, err := NewTemp(*tempFloat)
+	if err != nil {
+		return nil, xerrors.Errorf("NewTemp: %w", err)
 	}
-	if wndspd != nil {
-		if *wndspd < 0 || 3 < *wndspd {
-			return nil, cerror.NewInvalidArgumentError("*wndspd < 0 || 3 < *wndspd", "風速は1~3の間で指定してください。")
-		}
+	arpress, err := NewArpress(*arpressInt)
+	if err != nil {
+		return nil, xerrors.Errorf("NewArpress: %w", err)
 	}
-	if rhum != nil {
-		if *rhum < 0 || 3 < *rhum {
-			return nil, cerror.NewInvalidArgumentError("*rhum < 0 || 3 < *rhum", "湿度は1~3の間で指定してください。")
-		}
+	wndspd, err := NewWndspd(*wndspdInt)
+	if err != nil {
+		return nil, xerrors.Errorf("NewWndspd: %w", err)
 	}
-	if feeltmp != nil {
-		if *feeltmp < 0 || 3 < *feeltmp {
-			return nil, cerror.NewInvalidArgumentError("*feeltmp < 0 || 3 < *feeltmp", "体感気温は1~3の間で指定してください。")
-		}
+	rhum, err := NewRhum(*rhumInt)
+	if err != nil {
+		return nil, xerrors.Errorf("NewRhum: %w", err)
 	}
+	feeltmp, err := NewFeeltmp(*feeltmpInt)
+	if err != nil {
+		return nil, xerrors.Errorf("NewFeeltmp: %w", err)
+	}
+
 	alert := Alert{
 		id:      *id,
 		title:   title,
-		lat:     lat,
-		lon:     lon,
+		lat:     *lat,
+		lon:     *lon,
 		wx:      wx,
 		temp:    temp,
 		arpress: arpress,
@@ -73,7 +74,7 @@ func NewAlert(idString string, title string, lat float32, lon float32, wx *int, 
 	return &alert, nil
 }
 
-func InitAlert(title string, lat float32, lon float32, wx *int, temp *float32, arpress *int, wndspd *int, rhum *int, feeltmp *int, text string) (*Alert, error) {
+func InitAlert(title string, lat float64, lon float64, wx *int, temp *float64, arpress *int, wndspd *int, rhum *int, feeltmp *int, text string) (*Alert, error) {
 	id, err := InitId()
 	if err != nil {
 		return nil, xerrors.Errorf("InitId: %w", err)
@@ -93,78 +94,121 @@ func (a Alert) Title() string {
 	return a.title
 }
 
-func (a *Alert) SetTitle(val string) {
+func (a *Alert) SetTitle(val string) error {
 	a.title = val
+	return nil
 }
 
-func (a Alert) Lat() float32 {
+func (a Alert) Lat() LatLon {
 	return a.lat
 }
 
-func (a *Alert) SetLat(val float32) {
-	a.lat = val
+func (a *Alert) SetLat(val float64) error {
+	lat, err := NewLatLon(val)
+	if err != nil {
+		return xerrors.Errorf("NewLatLon: %w", err)
+	}
+	a.lat = *lat
+	return nil
 }
 
-func (a Alert) Lon() float32 {
+func (a Alert) Lon() LatLon {
 	return a.lon
 }
 
-func (a *Alert) SetLon(val float32) {
-	a.lon = val
+func (a *Alert) SetLon(val float64) error {
+	lon, err := NewLatLon(val)
+	if err != nil {
+		return xerrors.Errorf("NewLatLon: %w", err)
+	}
+	a.lon = *lon
+	return nil
 }
 
-func (a Alert) PWx() *int {
+func (a Alert) PWx() *Wx {
 	return a.wx
 }
 
-func (a *Alert) SetWx(val int) {
-	a.wx = &val
+func (a *Alert) SetWx(val int) error {
+	wx, err := NewWx(val)
+	if err != nil {
+		return xerrors.Errorf("NewWx: %w", err)
+	}
+	a.wx = wx
+	return nil
 }
 
-func (a Alert) PTemp() *float32 {
+func (a Alert) PTemp() *Temp {
 	return a.temp
 }
 
-func (a *Alert) SetTemp(val float32) {
-	a.temp = &val
+func (a *Alert) SetTemp(val float64) error {
+	temp, err := NewTemp(val)
+	if err != nil {
+		return xerrors.Errorf("NewTemp: %w", err)
+	}
+
+	a.temp = temp
+	return nil
 }
 
-func (a Alert) PArpress() *int {
+func (a Alert) PArpress() *Arpress {
 	return a.arpress
 }
 
-func (a *Alert) SetArpress(val int) {
-	a.arpress = &val
+func (a *Alert) SetArpress(val int) error {
+	arpress, err := NewArpress(val)
+	if err != nil {
+		return xerrors.Errorf("NewArpress: %w", err)
+	}
+	a.arpress = arpress
+	return nil
 }
 
-func (a Alert) PWndspd() *int {
+func (a Alert) PWndspd() *Wndspd {
 	return a.wndspd
 }
 
-func (a *Alert) SetWndspd(val int) {
-	a.wndspd = &val
+func (a *Alert) SetWndspd(val int) error {
+	wndspd, err := NewWndspd(val)
+	if err != nil {
+		return xerrors.Errorf("NewWndspd: %w", err)
+	}
+	a.wndspd = wndspd
+	return nil
 }
 
-func (a Alert) PRhum() *int {
+func (a Alert) PRhum() *Rhum {
 	return a.rhum
 }
 
-func (a *Alert) SetRhum(val int) {
-	a.rhum = &val
+func (a *Alert) SetRhum(val int) error {
+	rhum, err := NewRhum(val)
+	if err != nil {
+		return xerrors.Errorf("NewRhum: %w", err)
+	}
+	a.rhum = rhum
+	return nil
 }
 
-func (a Alert) PFeeltmp() *int {
+func (a Alert) PFeeltmp() *Feeltmp {
 	return a.feeltmp
 }
 
-func (a *Alert) SetFeeltmp(val int) {
-	a.feeltmp = &val
+func (a *Alert) SetFeeltmp(val int) error {
+	feeltmp, err := NewFeeltmp(val)
+	if err != nil {
+		return xerrors.Errorf("NewFeeltmp: %w", err)
+	}
+	a.feeltmp = feeltmp
+	return nil
 }
 
 func (a Alert) Text() string {
 	return a.text
 }
 
-func (a *Alert) SetText(val string) {
+func (a *Alert) SetText(val string) error {
 	a.text = val
+	return nil
 }

@@ -20,10 +20,10 @@ func (Alert) Mixin() []ent.Mixin {
 func (Alert) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("title"),
-		field.Float32("lat"),
-		field.Float32("lon"),
+		field.Float("lat"),
+		field.Float("lon"),
 		field.Int("wx").Optional().Nillable(),
-		field.Float32("temp").Optional().Nillable(),
+		field.Float("temp").Optional().Nillable(),
 		field.Int("arpress").Optional().Nillable(),
 		field.Int("wndspd").Optional().Nillable(),
 		field.Int("rhum").Optional().Nillable(),
