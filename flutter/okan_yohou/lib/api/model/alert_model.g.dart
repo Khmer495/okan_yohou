@@ -11,14 +11,14 @@ AlertModel _$AlertModelFromJson(Map<String, dynamic> json) {
     id : json['id']  as String?,
     title : json['title']  as String?,
     text : json['text']  as String?,
-    location: json['location'] == null
-        ? null
-        : LocationModel.fromJson(
-        json['location'] as Map<String, dynamic>),
-    trigger: json['trigger'] == null
-        ? null
-        : TriggerModel.fromJson(
-        json['trigger'] as Map<String, dynamic>),
+    wx : json['wx'] as int?,
+    temp : json['temp']  as double?,
+    arpress : json['arpress']  as int?,
+    wndspd : json['wndspd']  as int?,
+    rhum : json['rhum']  as int?,
+    feeltmp : json['feeltmp']  as int?,
+    lat : json['lat']  as double?,
+    lon : json['lon']  as double?,
   );
 }
 
@@ -27,7 +27,12 @@ Map<String, dynamic> _$AlertModelToJson(AlertModel instance) =>
       'id': instance.id,
       'title': instance.title,
       'text': instance.text,
-      'location': instance.location,
-      'trigger': instance.trigger,
-
+      'wx': instance.wx,
+      'temp': instance.temp,
+      'arpress': instance.arpress,
+      'wndspd': instance.wndspd,
+      'rhum': instance.rhum,
+      'feeltmp': instance.feeltmp,
+      'lat': instance.lat,
+      'lon': instance.lon,
     };

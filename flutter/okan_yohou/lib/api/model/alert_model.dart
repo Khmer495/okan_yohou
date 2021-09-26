@@ -1,6 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:okanyohou/api/model/location_model.dart';
-import 'package:okanyohou/api/model/trigger_model.dart';
 
 part 'alert_model.g.dart';
 
@@ -9,8 +7,14 @@ class AlertModel {
   AlertModel({
     this.id,
     this.title,
-    this.location,
-    this.trigger,
+    this.lat,
+    this.lon,
+    this.wx,
+    this.temp,
+    this.arpress,
+    this.wndspd,
+    this.rhum,
+    this.feeltmp,
     this.text,
   });
 
@@ -19,8 +23,14 @@ class AlertModel {
 
   String? id;
   String? title;
-  LocationModel? location;
-  TriggerModel? trigger;
+  double? lat;
+  double? lon;
+  int? wx;
+  double? temp;
+  int? arpress;
+  int? wndspd;
+  int? rhum;
+  int? feeltmp;
   String? text;
 
   @override
